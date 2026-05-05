@@ -12,7 +12,6 @@ import (
 func CreateGuru(c *gin.Context) {
 	nama := c.PostForm("nama")
 	jabatan := c.PostForm("jabatan")
-	nip := c.PostForm("nip")
 	
 
 	fileBytes, objectPath, contentType, err := utility.ProcessImageUpload(c, "foto")
@@ -30,7 +29,6 @@ func CreateGuru(c *gin.Context) {
 	guru := models.Guru{
 		Nama:    nama,
 		Jabatan: jabatan,
-		Nip:     nip,
 		Foto:    publicURL,
 	}
 
@@ -60,14 +58,11 @@ func EditGuru(c *gin.Context) {
 
 	nama := c.PostForm("nama")
 	jabatan := c.PostForm("jabatan")
-	nip := c.PostForm("nip")
 
 	
 	guru := models.Guru{
 		Nama:    nama,
 		Jabatan: jabatan,
-		Nip:     nip,
-		
 	}
 
 	file, _ := c.FormFile("foto")

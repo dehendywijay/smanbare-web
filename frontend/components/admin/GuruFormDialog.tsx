@@ -14,12 +14,10 @@ type GuruFormDialogProps = {
   open: boolean;
   isEdit: boolean;
   nama: string;
-  nip: string;
   jabatan: string;
   onOpenChange: (open: boolean) => void;
   onSubmit: (e: React.FormEvent) => void;
   onNamaChange: (value: string) => void;
-  onNipChange: (value: string) => void;
   onJabatanChange: (value: string) => void;
   onFotoChange: (file: File | null) => void;
 };
@@ -28,12 +26,10 @@ export default function GuruFormDialog({
   open,
   isEdit,
   nama,
-  nip,
   jabatan,
   onOpenChange,
   onSubmit,
   onNamaChange,
-  onNipChange,
   onJabatanChange,
   onFotoChange,
 }: GuruFormDialogProps) {
@@ -52,13 +48,6 @@ export default function GuruFormDialog({
             placeholder="Masukkan Nama..."
             value={nama}
             onChange={(e) => onNamaChange(e.target.value)}
-          />
-
-          <Input
-            type="text"
-            placeholder="Masukkan NIP..."
-            value={nip}
-            onChange={(e) => onNipChange(e.target.value)}
           />
 
           <Input
