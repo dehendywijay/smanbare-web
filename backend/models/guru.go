@@ -6,7 +6,6 @@ type Guru struct {
 	gorm.Model
 	Nama    string `json:"nama" gorm:"not null"`
 	Jabatan string `json:"jabatan" gorm:"not null"`
-	Nip     string `json:"nip" gorm:"not null;unique"`
 	Foto    string `json:"foto" gorm:"not null"`
 }
 

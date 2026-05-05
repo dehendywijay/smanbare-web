@@ -53,3 +53,12 @@ func DeleteNews(slug string) (string, error) {
 
 	return thumbnail, nil
 }
+
+func GetFotoNews(slug string) (string, error) {
+	var news models.News
+	err := config.DB.Select("thumbnail").Where("slug = ?", slug).First(&news).Error
+	if err != nil {
+		return "", err
+	}
+	return news.Thumbnail, nil
+}

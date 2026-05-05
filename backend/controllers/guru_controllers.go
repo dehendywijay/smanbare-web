@@ -12,12 +12,11 @@ import (
 func CreateGuru(c *gin.Context) {
 	nama := c.PostForm("nama")
 	jabatan := c.PostForm("jabatan")
-	nip := c.PostForm("nip")
 	
 
 	fileBytes, objectPath, contentType, err := utility.ProcessImageUpload(c, "foto")
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Gagal memproses gambar: " })
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -30,7 +29,6 @@ func CreateGuru(c *gin.Context) {
 	guru := models.Guru{
 		Nama:    nama,
 		Jabatan: jabatan,
-		Nip:     nip,
 		Foto:    publicURL,
 	}
 
@@ -60,25 +58,30 @@ func EditGuru(c *gin.Context) {
 
 	nama := c.PostForm("nama")
 	jabatan := c.PostForm("jabatan")
-	nip := c.PostForm("nip")
 
 	
 	guru := models.Guru{
 		Nama:    nama,
 		Jabatan: jabatan,
-		Nip:     nip,
-		
 	}
 
 	file, _ := c.FormFile("foto")
 	if file != nil {
+		oldObjectPath, err := services.GetFotoGuru(id)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal mendapatkan data guru " })
+			return
+		}
+
+		oldFoto := utility.ExtractObjectPath(oldObjectPath, "guru")
+
 		fileBytes, objectPath, contentType, err := utility.ProcessImageUpload(c, "foto")
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
 
-		publicURL, err := services.UploadToSupabase("image_thumbnail", objectPath, contentType, fileBytes)
+		publicURL, err := services.UpdateSupabaseFile("guru", oldFoto , objectPath, contentType, fileBytes)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
@@ -102,7 +105,22 @@ func EditGuru(c *gin.Context) {
 func DeleteGuru(c *gin.Context) {
 	id := c.Param("id")	
 
-	err := services.DeleteGuru(id)
+	foto, err := services.GetFotoGuru(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal mendapatkan data guru " })
+		return
+	}
+	
+	if foto != "" {
+		fotopath := utility.ExtractObjectPath(foto, "guru")
+		err = services.DeleteFromSupabase("guru",fotopath)
+		if err != nil{
+			c.JSON(http.StatusInternalServerError, gin.H{"error" : "Gagal Menhapus Foto"})
+			return
+		}
+	}
+
+	err = services.DeleteGuru(id)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

@@ -65,13 +65,21 @@ func UpdateAlumni(c *gin.Context) {
 
 	file, _ := c.FormFile("foto")
 	if file != nil {
+		oldObjectPath, err := services.GetFotoAlumni(id)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get alumni data: " + err.Error()})
+			return
+		}
+
+		oldFoto := utility.ExtractObjectPath(oldObjectPath, "alumni")
+
 		fileBytes, objectPath, contentType, err := utility.ProcessImageUpload(c, "foto")
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
 
-		publicURL, err := services.UploadToSupabase("alumni", objectPath, contentType, fileBytes)
+		publicURL, err := services.UpdateSupabaseFile("alumni", oldFoto , objectPath, contentType, fileBytes)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
@@ -93,7 +101,22 @@ func UpdateAlumni(c *gin.Context) {
 func DeleteAlumni(c *gin.Context) {
 	id := c.Param("id")
 
-	err := services.DeleteAlumni(id)
+	foto, err := services.GetFotoAlumni(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal mendapatkan data alumni " })
+		return
+	}
+	
+	if foto != "" {
+		fotopath := utility.ExtractObjectPath(foto, "alumni")
+		err = services.DeleteFromSupabase("alumni",fotopath)
+		if err != nil{
+			c.JSON(http.StatusInternalServerError, gin.H{"error" : "Gagal Menhapus Foto"})
+			return
+		}
+	}
+
+	err = services.DeleteAlumni(id)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete alumni: " + err.Error()})
 		return

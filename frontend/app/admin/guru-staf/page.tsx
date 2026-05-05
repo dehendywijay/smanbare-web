@@ -33,13 +33,11 @@ export default function AdminGuruStafPage() {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [nama, setNama] = useState("");
-  const [nip, setNip] = useState("");
   const [jabatan, setJabatan] = useState("");
   const [foto, setFoto] = useState<File | null>(null);
 
   const resetForm = () => {
     setNama("");
-    setNip("");
     setJabatan("");
     setFoto(null);
     setSelectedId(null);
@@ -68,7 +66,6 @@ export default function AdminGuruStafPage() {
     }
 
     setNama(selectedGuru.nama);
-    setNip(selectedGuru.nip);
     setJabatan(selectedGuru.jabatan);
     setFoto(null);
     setSelectedId(id);
@@ -82,7 +79,6 @@ export default function AdminGuruStafPage() {
     try {
       const formData = new FormData();
       formData.append("nama", nama);
-      formData.append("nip", nip);
       formData.append("jabatan", jabatan);
 
       if (foto) {
@@ -161,7 +157,6 @@ export default function AdminGuruStafPage() {
               <TableRow>
                 <TableHead className="w-16">No</TableHead>
                 <TableHead>Nama</TableHead>
-                <TableHead>NIP</TableHead>
                 <TableHead>Jabatan</TableHead>
                 <TableHead className="text-right">Aksi</TableHead>
               </TableRow>
@@ -192,10 +187,6 @@ export default function AdminGuruStafPage() {
                         {person.nama}
                       </div>
                     </div>
-                  </TableCell>
-
-                  <TableCell className="font-medium text-slate-600">
-                    {person.nip}
                   </TableCell>
 
                   <TableCell>
@@ -233,12 +224,10 @@ export default function AdminGuruStafPage() {
         open={isDialogOpen}
         isEdit={isEdit}
         nama={nama}
-        nip={nip}
         jabatan={jabatan}
         onOpenChange={handleDialogChange}
         onSubmit={handleSubmit}
         onNamaChange={setNama}
-        onNipChange={setNip}
         onJabatanChange={setJabatan}
         onFotoChange={setFoto}
       />

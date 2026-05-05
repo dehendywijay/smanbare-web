@@ -29,11 +29,23 @@ func ProcessImageUpload(c *gin.Context, field string) ([]byte, string, string, e
 	}
 
 	contentType := file.Header.Get("Content-Type")
-	if !strings.HasPrefix(contentType, "image/") {
-		return nil, "", "", fmt.Errorf("file must be an image")
+	ext := strings.ToLower(filepath.Ext(file.Filename))
+
+	if ext == ".heic" || ext == ".heif" {
+		return nil, "", "", fmt.Errorf("format HEIC/HEIF belum didukung, gunakan JPG, PNG, atau WEBP")
 	}
 
-	ext := strings.ToLower(filepath.Ext(file.Filename))
+	allowedTypes := map[string]bool{
+		"image/jpeg": true,
+		"image/jpg":  true,
+		"image/png":  true,
+		"image/webp": true,
+	}
+
+	if !allowedTypes[contentType] {
+		return nil, "", "", fmt.Errorf("format gambar harus JPG, PNG, atau WEBP")
+	}
+
 	if ext == "" {
 		ext = ".jpg"
 	}

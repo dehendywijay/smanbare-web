@@ -25,7 +25,7 @@ func CreateNews(c *gin.Context) {
 		return
 	}
 
-	publicURL, err := services.UploadToSupabase("image_thumbnail", objectPath, contentType, fileBytes)
+	publicURL, err := services.UploadToSupabase("news_thumbnail", objectPath, contentType, fileBytes)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -92,13 +92,19 @@ func UpdateNews(c *gin.Context) {
 
 	file, _ := c.FormFile("image")
 	if file != nil {
+		oldObjectPath, err := services.GetFotoNews(slug)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get old thumbnail: " + err.Error()})
+			return
+		}
+
 		fileBytes, objectPath, contentType, err := utility.ProcessImageUpload(c, "image")
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
 
-		publicURL, err := services.UploadToSupabase("image_thumbnail", objectPath, contentType, fileBytes)
+		publicURL, err := services.UpdateSupabaseFile("news_thumbnail",oldObjectPath, objectPath, contentType, fileBytes)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
@@ -128,9 +134,9 @@ func DeleteNews(c *gin.Context) {
 		return
 	}
 	
-	fotopath := utility.ExtractObjectPath(foto, "image_thumbnail")
+	fotopath := utility.ExtractObjectPath(foto, "news_thumbnail")
 
-	err = services.DeleteFromSupabase("image_thumbnail",fotopath)
+	err = services.DeleteFromSupabase("news_thumbnail",fotopath)
 	if err != nil{
 		c.JSON(http.StatusInternalServerError, gin.H{"error" : "Gagal Menhapus Foto"})
 		return

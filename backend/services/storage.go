@@ -79,7 +79,7 @@ func DeleteFromSupabase(bucket, objectPath string) error {
 func UpdateSupabaseFile(bucket, oldObjectPath, newObjectPath, contentType string, fileBytes []byte) (string, error) {
 	if oldObjectPath != "" {
 		if err := DeleteFromSupabase(bucket, oldObjectPath); err != nil {
-			return "", err
+			return "", fmt.Errorf("Foto lama gagal dihapus")
 		}
 	}
 

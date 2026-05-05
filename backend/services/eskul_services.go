@@ -40,3 +40,12 @@ func DeleteEskul(slug string) error {
 	}
 	return config.DB.Delete(&eskul).Error
 }
+
+func GetFotoEskul(slug string) (string, error) {
+	var eskul models.Eskul
+	err := config.DB.Select("foto").Where("slug = ?", slug).First(&eskul).Error
+	if err != nil {
+		return "", err
+	}
+	return eskul.Foto, nil
+}

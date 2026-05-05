@@ -34,3 +34,12 @@ func DeleteGuru(id string) error {
 	}
 	return config.DB.Delete(&guru).Error
 }
+
+func GetFotoGuru(id string) (string, error) {
+	var guru models.Guru
+	err := config.DB.Select("foto").First(&guru, id).Error
+	if err != nil {
+		return "", err
+	}
+	return guru.Foto, nil
+}
