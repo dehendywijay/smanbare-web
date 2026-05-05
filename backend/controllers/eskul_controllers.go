@@ -96,13 +96,21 @@ func EditEskul(c *gin.Context) {
 
 	file, _ := c.FormFile("foto")
 	if file != nil {
+		oldObjectPath, err := services.GetFotoEskul(id)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal mendapatkan data eskul " })
+			return
+		}
+
+		oldFoto := utility.ExtractObjectPath(oldObjectPath, "eskul")
+
 		fileBytes, objectPath, contentType, err := utility.ProcessImageUpload(c, "foto")
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
 
-		publicURL, err := services.UploadToSupabase("eskul", objectPath, contentType, fileBytes)
+		publicURL, err := services.UpdateSupabaseFile("eskul", oldFoto , objectPath, contentType, fileBytes)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
@@ -123,7 +131,23 @@ func EditEskul(c *gin.Context) {
 
 func DeleteEskul(c *gin.Context) {
 	id := c.Param("slug")
-	err := services.DeleteEskul(id)
+
+	foto, err := services.GetFotoEskul(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal mendapatkan data eskul " })
+		return
+	}
+	
+	if foto != "" {
+		fotopath := utility.ExtractObjectPath(foto, "eskul")
+		err = services.DeleteFromSupabase("eskul",fotopath)
+		if err != nil{
+			c.JSON(http.StatusInternalServerError, gin.H{"error" : "Gagal Menhapus Foto"})
+			return
+		}
+	}
+
+	err = services.DeleteEskul(id)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

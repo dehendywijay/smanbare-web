@@ -34,3 +34,12 @@ func DeleteAlumni(id string) error {
 	}
 	return config.DB.Delete(&alumni).Error
 }
+
+func GetFotoAlumni(id string) (string, error) {
+	var alumni models.Alumni
+	err := config.DB.Select("foto").First(&alumni, id).Error
+	if err != nil {
+		return "", err
+	}
+	return alumni.Foto, nil
+}

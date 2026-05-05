@@ -45,7 +45,7 @@ export function useNewsData(itemsPerPage: number = 5) {
 
   const handleSave = async (newsData: Omit<News, "id" | "createdAt" | "updatedAt">) => {
     if (editingNews) {
-      await updateNews(editingNews.id, newsData);
+      await updateNews(editingNews.slug, newsData);
     } else {
       await createNews(newsData);
     }
