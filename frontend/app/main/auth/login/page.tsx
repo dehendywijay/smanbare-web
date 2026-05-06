@@ -13,6 +13,8 @@ export default function LoginPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
+    // Simpan nama ke localStorage agar bisa dibaca di Header
+    localStorage.setItem("admin_name", username);
     // Logic login ditunda sesuai permintaan
     router.push("/admin");
   };

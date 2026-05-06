@@ -20,16 +20,29 @@ export function useNewsData(itemsPerPage: number = 5) {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingNews, setEditingNews] = useState<News | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  // Menghitung jumlah total halaman
-  const totalPages = Math.ceil(news.length / itemsPerPage);
+  // Memfilter berita berdasarkan query pencarian
+  const filteredNews = useMemo(() => {
+    return news.filter((item) => {
+      return item.title.toLowerCase().includes(searchQuery.toLowerCase());
+    });
+  }, [news, searchQuery]);
 
-  // Memoize data berita yang dipaginasi
+  // Menghitung jumlah total halaman berdasarkan berita yang sudah difilter
+  const totalPages = Math.ceil(filteredNews.length / itemsPerPage);
+
+  // Memoize data berita yang dipaginasi dari hasil filter
   const paginatedNews = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    return news.slice(startIndex, endIndex);
-  }, [news, currentPage, itemsPerPage]);
+    return filteredNews.slice(startIndex, endIndex);
+  }, [filteredNews, currentPage, itemsPerPage]);
+
+  // Reset ke halaman 1 jika kueri pencarian berubah
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery]);
 
   const getNews = async () => {
     const newsData = await fetchNewsList();
@@ -81,10 +94,14 @@ export function useNewsData(itemsPerPage: number = 5) {
     editingNews,
     currentPage,
     totalPages,
+    itemsPerPage,
+    searchQuery,
+    setSearchQuery,
     handleSave,
     handleDelete,
     handleEdit,
     handleAdd,
+    getNews,
     setIsFormOpen,
     setCurrentPage,
   };

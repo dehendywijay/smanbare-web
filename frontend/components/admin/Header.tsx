@@ -1,7 +1,8 @@
 "use client";
 
-import { Bell, User, Menu } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { Bell, User, Menu, LogOut } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const navItems = [
   { name: "Dashboard", href: "/admin" },
@@ -19,9 +20,24 @@ interface HeaderProps {
 
 export default function Header({ onMenuToggle }: HeaderProps) {
   const pathname = usePathname();
+  const router = useRouter();
 
   // Find current page name from navItems
   const currentPage = navItems.find((item) => item.href === pathname)?.name || "Dashboard";
+
+  const [adminName, setAdminName] = useState("Admin SMANSA");
+
+  useEffect(() => {
+    const name = localStorage.getItem("admin_name");
+    if (name) {
+      setAdminName(name);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("admin_name");
+    router.push("/main/auth/login");
+  };
 
   return (
     <header className="flex items-center justify-between h-16 px-4 md:px-6 bg-white border-b sticky top-0 z-30">
@@ -40,20 +56,23 @@ export default function Header({ onMenuToggle }: HeaderProps) {
       </div>
 
       <div className="flex items-center gap-3 md:gap-6">
-        <button className="p-2 rounded-full hover:bg-slate-100 transition-colors relative">
-          <Bell className="h-5 w-5 text-slate-600" />
-          <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
-        </button>
-        
         <div className="flex items-center gap-3 pl-3 md:pl-6 border-l border-slate-100">
           <div className="hidden sm:block text-right">
-            <div className="text-sm font-bold text-slate-800">John Doe</div>
+            <div className="text-sm font-bold text-slate-800">{adminName}</div>
             <div className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Administrator</div>
           </div>
           <div className="h-10 w-10 rounded-xl bg-brand-surface-alt flex items-center justify-center border border-brand-primary/10 shadow-sm">
             <User className="h-6 w-6 text-brand-primary" />
           </div>
         </div>
+
+        <button
+          onClick={handleLogout}
+          className="p-2 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-all duration-200"
+          title="Logout"
+        >
+          <LogOut size={20} />
+        </button>
       </div>
     </header>
   );
