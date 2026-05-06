@@ -67,7 +67,7 @@ export default function AdminGuruStafPage() {
 
     setNama(selectedGuru.nama);
     setJabatan(selectedGuru.jabatan);
-    setFoto(selectedGuru.foto ? new File([], selectedGuru.foto) : null);
+    setFoto(null);
     setSelectedId(id);
     setIsEdit(true);
     setIsDialogOpen(true);
@@ -95,6 +95,7 @@ export default function AdminGuruStafPage() {
       resetForm();
       setIsDialogOpen(false);
       await refetch();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error(error);
       toast.error(error?.response?.data?.error || "Terjadi kesalahan");
@@ -116,6 +117,7 @@ export default function AdminGuruStafPage() {
 
       toast.success(res.data.message);
       await refetch();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(error?.response?.data?.error || "Gagal menghapus data");
     }

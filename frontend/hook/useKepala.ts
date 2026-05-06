@@ -10,13 +10,6 @@ export const useKepalaDetail = (id: 1) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-   useEffect(() => {
-    if (!id) {
-      setLoading(false);
-      setError("Kepala ID is missing.");
-      return;
-    }
-
   const fetchKepalaByID = async () => {
     try {
       const data = await axios.get<KepalaSekolah>(`${api_kepala}/${id}`).then((res) => res.data);
@@ -28,9 +21,10 @@ export const useKepalaDetail = (id: 1) => {
       setLoading(false);
     }
   };
-  void fetchKepalaByID();
-  }, [id]);
   
+  useEffect(() => {
+    fetchKepalaByID();
+  }, []);
 
-  return { kepala, loading, error};
+  return { kepala, loading, error, refetch: fetchKepalaByID };
 };
