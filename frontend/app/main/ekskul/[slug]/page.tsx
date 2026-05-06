@@ -4,7 +4,7 @@ import RevealOnScroll from "@/components/animations/RevealOnScroll";
 import Sidebar from "@/components/news/SideNews";
 import PageHero from "@/components/shared/PageHero";
 import { useEskulDetail } from "@/hook/useEskulDetail";
-import { Calendar, Info, Trophy, User } from "lucide-react";
+import { Calendar, Info, Skull, Trophy, User } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
@@ -84,6 +84,7 @@ export default function Home({
                 />
               </div>
 
+              {eskul?.prestasi ?(
               <div className="p-10 rounded-[40px] bg-slate-900 text-white space-y-6 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-brand-primary/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
                 <div className="relative z-10">
@@ -96,13 +97,14 @@ export default function Home({
                   <h3 className="text-2xl font-heading font-bold mb-4">
                     Mencetak Generasi Juara
                   </h3>
-                  <p className="text-slate-400 max-w-2xl leading-relaxed">
-                    Ekskul {eskul?.nama} SMAN 1 Bangunrejo telah berhasil meraih
-                    berbagai penghargaan di tingkat kabupaten maupun provinsi
-                    dalam kurun waktu terakhir.
-                  </p>
+                  <div className="text-slate-400 max-w-2xl leading-relaxed" dangerouslySetInnerHTML={{ __html: eskul?.prestasi || "" }} />
                 </div>
               </div>
+              ):(
+                  <div>
+
+                  </div>
+              )}
             </RevealOnScroll>
           </section>
           <aside className="lg:col-span-1">
