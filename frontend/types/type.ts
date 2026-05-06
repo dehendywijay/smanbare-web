@@ -37,7 +37,7 @@ export type Eskul = {
   foto: string;
   pembina: string;
   jadwal: string;
-  prestasi: string;
+  prestasi?: string;
   slug: string;
 };
 

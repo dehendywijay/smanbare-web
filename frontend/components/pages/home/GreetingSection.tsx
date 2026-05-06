@@ -4,8 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import RevealOnScroll from "@/components/animations/RevealOnScroll";
 import { ArrowRight, Quote } from "lucide-react";
+import { use } from "react";
+import { useKepalaDetail } from "@/hook/useKepala";
 
 export default function GreetingSection() {
+  const { kepala, loading, error } = useKepalaDetail(1);
+
   return (
     <section className="relative py-24 md:py-32 bg-white overflow-hidden">
       {/* Background Decorative Element */}
@@ -23,7 +27,7 @@ export default function GreetingSection() {
 
             <div className="relative h-full w-full rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop"
+                src={kepala?.foto || ""}
                 alt="Kepala Sekolah"
                 fill
                 className="object-cover transition-transform duration-700 hover:scale-105"
@@ -31,9 +35,7 @@ export default function GreetingSection() {
 
               {/* Name Tag Overlay */}
               <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-brand-primary to-transparent text-white">
-                <p className="font-heading font-bold text-lg">
-                   Muhammad Zaenudin, S.Pd.
-                </p>
+                <p className="font-heading font-bold text-lg">{kepala?.name}</p>
                 <p className="text-xs uppercase tracking-widest text-white/80">
                   Kepala Sekolah
                 </p>
@@ -60,14 +62,10 @@ export default function GreetingSection() {
 
             <div className="relative pl-8 border-l-4 border-brand-primary/30">
               <Quote className="absolute -left-3 -top-6 text-brand-primary/10 w-16 h-16 -z-10" />
-              <div className="space-y-4 text-slate-600 leading-relaxed text-lg italic">
-                <p>
-                  "Selamat datang di website resmi{" "}
-                  <strong>SMA Negeri 1 Bangunrejo</strong>. Kami berkomitmen
-                  untuk menghadirkan lingkungan belajar yang inovatif, disiplin,
-                  dan berlandaskan nilai-nilai karakter luhur."
-                </p>
-              </div>
+              <div
+                className="space-y-4 text-slate-600 leading-relaxed text-lg italic"
+                dangerouslySetInnerHTML={{ __html: kepala?.content || "" }}
+              />
             </div>
 
             <p className="text-slate-600 leading-relaxed">
