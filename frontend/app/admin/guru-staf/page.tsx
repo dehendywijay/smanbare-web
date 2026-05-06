@@ -67,7 +67,7 @@ export default function AdminGuruStafPage() {
 
     setNama(selectedGuru.nama);
     setJabatan(selectedGuru.jabatan);
-    setFoto(null);
+    setFoto(selectedGuru.foto ? new File([], selectedGuru.foto) : null);
     setSelectedId(id);
     setIsEdit(true);
     setIsDialogOpen(true);

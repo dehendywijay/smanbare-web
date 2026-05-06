@@ -131,3 +131,96 @@ func DeleteGuru(c *gin.Context) {
 	})
 }
 	
+
+func EditKepala(c *gin.Context) {
+	id := c.Param("id")
+
+	nama := c.PostForm("nama")
+	content := c.PostForm("content")
+	
+	kepalaSekolah := models.KepalaSekolah{
+		Name:    nama,
+		Content: content,
+	}
+
+	file, _ := c.FormFile("foto")
+	if file != nil {
+		oldObjectPath, err := services.GetFotoKepala(id)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal mendapatkan data kepala sekolah " })
+			return
+		}
+
+		oldFoto := utility.ExtractObjectPath(oldObjectPath, "kepala")
+
+		fileBytes, objectPath, contentType, err := utility.ProcessImageUpload(c, "foto")
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		publicURL, err := services.UpdateSupabaseFile("kepala", oldFoto , objectPath, contentType, fileBytes)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+
+		kepalaSekolah.Foto = publicURL
+	}
+
+
+	_ , err := services.EditKepalaSekolah(id, kepalaSekolah)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal membuat data kepala sekolah " })
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Data berhasil diupdate",
+	})
+}
+
+func CreateKepala(c *gin.Context) {
+	nama := c.PostForm("nama")
+	content := c.PostForm("content")
+
+	fileBytes, objectPath, contentType, err := utility.ProcessImageUpload(c, "foto")
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	publicURL, err := services.UploadToSupabase("kepala", objectPath, contentType, fileBytes)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal mengunggah gambar " })
+		return
+	}
+
+	kepalaSekolah := models.KepalaSekolah{
+		Name:    nama,
+		Content: content,
+		Foto:    publicURL,
+	}
+
+	_ , err = services.CreateKepalaSekolah(kepalaSekolah)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal membuat data kepala sekolah " })
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Data berhasil dibuat",
+	})
+}
+
+func GetKepalaByID(c *gin.Context) {
+	id := c.Param("id")
+
+	kepalaSekolah, err := services.GetKepalaByID(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal mendapatkan data kepala sekolah " })
+		return
+	}
+
+	c.JSON(http.StatusOK, kepalaSekolah)
+}

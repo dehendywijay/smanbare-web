@@ -48,3 +48,10 @@ export type Alumni = {
   tahun: string;
   foto: string;
 };
+
+export type KepalaSekolah = {
+  ID: number;
+  name: string;
+  content : string;
+  foto: string;
+};
