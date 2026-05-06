@@ -43,3 +43,34 @@ func GetFotoGuru(id string) (string, error) {
 	}
 	return guru.Foto, nil
 }
+
+
+func EditKepala(id string, updatedKepalaSekolah models.KepalaSekolah) (models.KepalaSekolah, error) {
+	var kepalaSekolah models.KepalaSekolah
+	err := config.DB.First(&kepalaSekolah, id).Error
+	if err != nil {
+		return kepalaSekolah, err
+	}
+	err = config.DB.Model(&kepalaSekolah).Updates(updatedKepalaSekolah).Error
+	return kepalaSekolah, err
+}
+
+func GetFotoKepala(id string) (string, error) {
+	var kepalaSekolah models.KepalaSekolah
+	err := config.DB.Select("foto").First(&kepalaSekolah, id).Error
+	if err != nil {
+		return "", err
+	}
+	return kepalaSekolah.Foto, nil
+}
+
+func CreateKepala(kepalaSekolah models.KepalaSekolah) (models.KepalaSekolah, error) {
+	result := config.DB.Create(&kepalaSekolah)
+	return kepalaSekolah, result.Error
+}
+
+func GetKepalaByID(id string) (models.KepalaSekolah, error) {
+	var kepalaSekolah models.KepalaSekolah
+	err := config.DB.First(&kepalaSekolah, id).Error
+	return kepalaSekolah, err
+}

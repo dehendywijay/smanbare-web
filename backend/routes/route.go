@@ -45,6 +45,9 @@ func GuruRoute(r *gin.Engine) {
 		guru.GET("", controllers.GetGuru)
 		guru.PUT("/:id", controllers.EditGuru)
 		guru.DELETE("/:id", controllers.DeleteGuru)
+		guru.GET("/kepala/:id", controllers.GetKepalaByID)
+		guru.POST("/kepala", controllers.CreateKepala)
+		guru.PUT("/kepala/:id", controllers.EditKepala)
 	}
 }
 

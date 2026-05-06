@@ -6,24 +6,47 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import TextEditor from "@/components/text-editor";
 import { toast } from "sonner";
+import { useKepalaDetail } from "@/hook/useKepala";
+import { api_kepala } from "@/constans/strings";
+import axios from "axios";
+import { set } from "react-hook-form";
 
 export default function AdminKepalaSekolahPage() {
-  const [name, setName] = useState("Drs. Ahmad Sudrajat, M.Pd.");
-  const [content, setContent] = useState("<p>Assalamu'alaikum Warahmatullahi Wabarakatuh,</p><p>Selamat datang di website resmi SMA Negeri 1 Bangunrejo...</p>");
-  const [imagePreview, setImagePreview] = useState("https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&auto=format&fit=crop");
-
-  const handleSave = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast.success("Data Kepala Sekolah berhasil disimpan! (Dummy)");
-  };
+  const { kepala, loading, error } = useKepalaDetail(1);
+  const [nama, setNama] = useState("");
+  const [content, setContent] = useState("");
+  const [foto, setFoto] = useState<File | null>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setImagePreview(url);
+    const file = e.target.files?.[0] || null;
+    setFoto(file);
+  };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const formData = new FormData();
+      formData.append("nama", nama);
+      formData.append("content", content);
+
+      if (foto) {
+        formData.append("foto", foto);
+      }
+
+      const res = kepala
+        ? await axios.put(`${api_kepala}/1`, formData)
+        : await axios.post(api_kepala, formData);
+
+      toast.success(res.data.message);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error(error);
+      toast.error(error?.response?.data?.error || "Terjadi kesalahan");
     }
   };
+
+  loading && <p>Loading...</p>;
+  error && <p className="text-red-500">{error}</p>;
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
@@ -33,27 +56,46 @@ export default function AdminKepalaSekolahPage() {
         </h1>
       </div>
 
-      <form onSubmit={handleSave} className="space-y-6 bg-white p-6 md:p-8 rounded-[32px] border border-slate-100 shadow-sm">
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-6 bg-white p-6 md:p-8 rounded-[32px] border border-slate-100 shadow-sm"
+      >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Photo Section */}
           <div className="space-y-4">
-            <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider">Foto Profil</label>
+            <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider">
+              Foto Profil
+            </label>
             <div className="relative group aspect-[3/4] rounded-2xl overflow-hidden bg-slate-100 border-2 border-dashed border-slate-200 flex items-center justify-center">
-              {imagePreview ? (
+              {kepala?.foto ? (
                 <>
-                  <img src={imagePreview} alt="Kepala Sekolah" className="w-full h-full object-cover" />
+                  <img
+                    src={kepala.foto}
+                    alt="Kepala Sekolah"
+                    className="w-full h-full object-cover"
+                  />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <label className="cursor-pointer bg-white text-slate-900 px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2">
                       <Upload size={14} /> Ganti Foto
-                      <input type="file" className="hidden" onChange={handleImageChange} accept="image/*" />
+                      <input
+                        type="file"
+                        className="hidden"
+                        onChange={handleImageChange}
+                        accept="image/*"
+                      />
                     </label>
                   </div>
                 </>
               ) : (
                 <div className="text-center p-4">
-                  <ImageIcon size={40} className="mx-auto text-slate-300 mb-2" />
-                  <p className="text-xs text-slate-400">Pilih foto Kepala Sekolah</p>
-                  <input type="file" className="hidden" onChange={handleImageChange} accept="image/*" />
+                  <ImageIcon
+                    size={40}
+                    className="mx-auto text-slate-300 mb-2"
+                  />
+                  <p className="text-xs text-slate-400">
+                    Pilih foto Kepala Sekolah
+                  </p>
+                  <input type="file" onChange={handleImageChange} />
                 </div>
               )}
             </div>
@@ -62,17 +104,21 @@ export default function AdminKepalaSekolahPage() {
           {/* Details Section */}
           <div className="md:col-span-2 space-y-6">
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider">Nama Lengkap</label>
-              <Input 
-                value={name} 
-                onChange={(e) => setName(e.target.value)} 
+              <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider">
+                Nama Lengkap
+              </label>
+              <Input
+                value={kepala?.name}
+                onChange={(e) => setNama(e.target.value)}
                 placeholder="Masukkan nama lengkap beserta gelar..."
                 className="rounded-xl border-slate-200 focus:ring-brand-primary/20"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider">Sambutan Kepala Sekolah</label>
+              <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider">
+                Sambutan Kepala Sekolah
+              </label>
               <div className="min-h-[300px]">
                 <TextEditor value={content} onChange={setContent} />
               </div>
@@ -81,7 +127,10 @@ export default function AdminKepalaSekolahPage() {
         </div>
 
         <div className="flex justify-end pt-4 border-t border-slate-100">
-          <Button type="submit" className="rounded-xl px-8 bg-brand-primary hover:bg-brand-primary/90 flex items-center gap-2">
+          <Button
+            type="submit"
+            className="rounded-xl px-8 bg-brand-primary hover:bg-brand-primary/90 flex items-center gap-2"
+          >
             <Save size={18} /> Simpan Perubahan
           </Button>
         </div>

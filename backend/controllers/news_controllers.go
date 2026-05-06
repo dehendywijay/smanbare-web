@@ -146,3 +146,4 @@ func DeleteNews(c *gin.Context) {
 		"message": "Berita berhasil dihapus",
 	})
 }
+
