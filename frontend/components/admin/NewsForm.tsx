@@ -1,5 +1,3 @@
-// Komponen ini adalah form modal untuk menambah atau mengedit berita.
-// Ini menggunakan komponen Dialog dari shadcn/ui.
 "use client";
 
 import {

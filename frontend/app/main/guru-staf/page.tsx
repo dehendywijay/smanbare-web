@@ -4,7 +4,6 @@ import { useState } from "react";
 import Sidebar from "@/components/news/SideNews";
 import RevealOnScroll from "@/components/animations/RevealOnScroll";
 import PageHero from "@/components/shared/PageHero";
-import { teachersData } from "@/lib/homeData";
 import Image from "next/image";
 import { Search, UserX } from "lucide-react";
 import { useGuru } from "@/hook/useGuru";

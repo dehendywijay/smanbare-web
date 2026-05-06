@@ -1,19 +1,26 @@
 "use client";
 
 import { useState } from "react";
-// import TextEditor from '@/components/text-editor'
 import axios from "axios";
 import TextEditor from "@/components/text-editor";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import RevealOnScroll from "@/components/animations/RevealOnScroll";
 import { useRouter } from "next/navigation";
-import { api_base, api_news } from "@/constans/strings";
+import { api_news } from "@/constans/strings";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function CreatePostForm() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState<File | null>(null);
+  const [category, setCategory] = useState("");
 
   const router = useRouter();
   const handleSubmit = async (e: React.FormEvent) => {
@@ -61,6 +68,22 @@ export default function CreatePostForm() {
         />
 
         <TextEditor onChange={setContent} value={""} />
+        
+        <div className="grid grid-cols-4 items-center gap-4">
+          <label htmlFor="category" className="text-left">
+            Kategori
+          </label>
+          <Select value={category || ""} onValueChange={setCategory}>
+            <SelectTrigger className="col-span-3 ">
+              <SelectValue placeholder="Pilih kategori" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="pengumuman">Pengumuman</SelectItem>
+              <SelectItem value="prestasi">Prestasi</SelectItem>
+              <SelectItem value="event">Event</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
 
         <button
           type="submit"

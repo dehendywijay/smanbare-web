@@ -6,17 +6,11 @@ import RevealOnScroll from "@/components/animations/RevealOnScroll";
 import PageHero from "@/components/shared/PageHero";
 import Image from "next/image";
 import {
-  Users2,
-  GraduationCap,
-  Briefcase,
   Handshake,
-  Award,
-  BookOpenCheck,
   School,
   Search,
   UserX
 } from "lucide-react";
-import { alumniData } from "@/lib/data";
 import { useAlumni } from "@/hook/useAlumni";
 
 export default function AlumniPage() {

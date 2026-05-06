@@ -98,9 +98,6 @@ export default function NewsDataTable() {
                     >
                       <Pencil className="h-4 w-4" />
                     </Button>
-                    {/* <Button variant="ghost" size="icon" className="text-red-500" onClick={() => {deleteNews(newsItem.id)}}>
-                      <Trash2 className="h-4 w-4" />
-                    </Button> */}
                     <AlertDialogDestructive
                       onDelete={() => deleteNews(newsItem.slug)}
                     />
