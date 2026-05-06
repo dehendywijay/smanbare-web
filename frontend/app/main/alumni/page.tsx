@@ -17,13 +17,15 @@ import {
   UserX
 } from "lucide-react";
 import { alumniData } from "@/lib/data";
+import { useAlumni } from "@/hook/useAlumni";
 
 export default function AlumniPage() {
   const [searchQuery, setSearchQuery] = useState("");
+  const {alumni} = useAlumni();
 
-  const filteredAlumni = alumniData.filter((alumni) =>
-    alumni.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    alumni.university.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredAlumni = alumni.filter((alumni) =>
+    alumni.nama.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    alumni.universitas.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
 
@@ -90,7 +92,7 @@ export default function AlumniPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
                   {filteredAlumni.map((alumni, index) => (
                     <RevealOnScroll
-                      key={alumni.id}
+                      key={alumni.ID}
                       direction="up"
                       delayClassName={`delay-${(index % 3) * 100}`}
                       className="group"
@@ -99,8 +101,8 @@ export default function AlumniPage() {
                         {/* Photo container */}
                         <div className="relative aspect-[4/5] overflow-hidden">
                           <Image
-                            src={alumni.image}
-                            alt={alumni.name}
+                            src={alumni.foto}
+                            alt={alumni.nama}
                             fill
                             className="object-cover transition-transform duration-700 group-hover:scale-110"
                           />
@@ -110,12 +112,12 @@ export default function AlumniPage() {
                         {/* Content */}
                         <div className="p-6 text-center">
                           <h3 className="font-heading font-bold text-slate-900 group-hover:text-brand-primary transition-colors duration-300">
-                            {alumni.name}
+                            {alumni.nama}
                           </h3>
                           <div className="flex items-center justify-center gap-1.5 mt-2 text-slate-600">
                             <School size={16} className="text-brand-primary/80" />
                             <p className="text-sm font-medium italic">
-                              {alumni.university}
+                              {alumni.universitas}
                             </p>
                           </div>
                         </div>

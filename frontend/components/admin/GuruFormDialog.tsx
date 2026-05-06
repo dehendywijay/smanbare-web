@@ -63,7 +63,11 @@ export default function GuruFormDialog({
           />
 
           <DialogFooter>
-            <Button type="button" onClick={() => onOpenChange(false)} variant="outline">
+            <Button
+              type="button"
+              onClick={() => onOpenChange(false)}
+              variant="outline"
+            >
               Batal
             </Button>
 

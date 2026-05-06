@@ -12,7 +12,7 @@ func CreateGuru(guru models.Guru) (models.Guru, error) {
 
 func GetGuru() ([]models.Guru, error) {
 	var guru []models.Guru
-	result := config.DB.Find(&guru)
+	result := config.DB.Order("nama asc").Find(&guru)
 	return guru, result.Error
 }
 
