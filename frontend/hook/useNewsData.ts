@@ -43,20 +43,24 @@ export function useNewsData(itemsPerPage: number = 5) {
     loadNews();
   }, []);
 
-  const handleSave = async (newsData: Omit<News, "id" | "createdAt" | "updatedAt">) => {
+  /**
+   * handleSave menerima FormData karena backend menggunakan c.PostForm()
+   * dan c.FormFile() untuk membaca data, bukan JSON.
+   */
+  const handleSave = async (formData: FormData) => {
     if (editingNews) {
-      await updateNews(editingNews.slug, newsData);
+      await updateNews(editingNews.slug, formData);
     } else {
-      await createNews(newsData);
+      await createNews(formData);
     }
     await getNews();
     setIsFormOpen(false);
     setEditingNews(null);
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (slug: string) => {
     if (window.confirm("Apakah Anda yakin ingin menghapus berita ini?")) {
-      await deleteNews(id);
+      await deleteNews(slug);
       await getNews();
     }
   };

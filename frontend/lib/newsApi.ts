@@ -29,27 +29,33 @@ export async function fetchNewsBySlug(slug: string): Promise<News> {
 
 /**
  * Membuat berita baru.
- * @param {Omit<News, 'id' | 'createdAt' | 'updatedAt'>} newsData - Objek yang berisi data berita baru.
+ * Backend mengharapkan multipart/form-data (c.PostForm), bukan JSON.
+ * @param {FormData} formData - FormData yang berisi field: title, content, image.
  * @returns {Promise<News>} Sebuah promise yang resolve dengan objek berita yang baru dibuat.
  */
-export async function createNews(newsData: Omit<News, 'id' | 'createdAt' | 'updatedAt'>): Promise<News> {
-  const { data } = await apiClient.post<News>("/news", newsData);
+export async function createNews(formData: FormData): Promise<News> {
+  const { data } = await apiClient.post<News>("/news", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
   return data;
 }
 
 /**
  * Memperbarui berita yang sudah ada.
+ * Backend mengharapkan multipart/form-data (c.PostForm), bukan JSON.
  * @param {string} slug - Slug dari berita yang akan diperbarui.
- * @param {Partial<Omit<News, 'id' | 'createdAt' | 'updatedAt'>>} newsData - Objek yang berisi data berita yang akan diperbarui.
+ * @param {FormData} formData - FormData yang berisi field: title, content, dan opsional image.
  * @returns {Promise<News>} Sebuah promise yang resolve dengan objek berita yang telah diperbarui.
  */
-export async function updateNews(slug: string, newsData: Partial<Omit<News, 'id' | 'createdAt' | 'updatedAt'>>): Promise<News> {
-  const { data } = await apiClient.put<News>(`/news/${slug}`, newsData);
+export async function updateNews(slug: string, formData: FormData): Promise<News> {
+  const { data } = await apiClient.put<News>(`/news/${slug}`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
   return data;
 }
 
 /**
- * Menghapus berita berdasarkan ID-nya.
+ * Menghapus berita berdasarkan slug-nya.
  * @param {string} slug - Slug dari berita yang akan dihapus.
  * @returns {Promise<void>} Sebuah promise yang resolve ketika berita berhasil dihapus.
  */

@@ -30,7 +30,7 @@ import { useRouter } from "next/navigation";
 interface NewsFormProps {
   open: boolean; // Status modal (terbuka/tertutup)
   onOpenChange: (open: boolean) => void; // Fungsi untuk mengubah status modal
-  onSave: (data: Omit<News, "id" | "createdAt" | "updatedAt">) => void; // Fungsi yang dipanggil saat menyimpan
+  onSave: (formData: FormData) => void; // Fungsi yang dipanggil saat menyimpan
   initialData?: News | null; // Data awal untuk mode edit
 }
 
@@ -68,16 +68,16 @@ export default function NewsForm({
   const router = useRouter();
   // Fungsi yang dipanggil saat tombol 'Save' diklik
   const handleSubmit = () => {
-    // Contoh sederhana, di aplikasi nyata, Anda harus menangani unggahan file dengan benar.
-    const newsData = {
-      title,
-      content,
-      category,
-      status,
-      thumbnail: thumbnail?.name || initialData?.thumbnail || "",
-      imgUrl: thumbnail?.name || initialData?.imgUrl || "",
-    };
-    onSave(newsData);
+    // Membuat FormData karena backend menggunakan c.PostForm() dan c.FormFile()
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", content);
+
+    if (thumbnail) {
+      formData.append("image", thumbnail);
+    }
+
+    onSave(formData);
     router.refresh();
   };
 

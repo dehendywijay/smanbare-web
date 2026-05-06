@@ -6,7 +6,6 @@ import (
 	"gin-app/utility"
 	"net/http"
 
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -104,7 +103,8 @@ func UpdateNews(c *gin.Context) {
 			return
 		}
 
-		publicURL, err := services.UpdateSupabaseFile("news_thumbnail",oldObjectPath, objectPath, contentType, fileBytes)
+		oldPath := utility.ExtractObjectPath(oldObjectPath, "news_thumbnail")
+		publicURL, err := services.UpdateSupabaseFile("news_thumbnail", oldPath, objectPath, contentType, fileBytes)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
@@ -133,12 +133,12 @@ func DeleteNews(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	
+
 	fotopath := utility.ExtractObjectPath(foto, "news_thumbnail")
 
-	err = services.DeleteFromSupabase("news_thumbnail",fotopath)
-	if err != nil{
-		c.JSON(http.StatusInternalServerError, gin.H{"error" : "Gagal Menhapus Foto"})
+	err = services.DeleteFromSupabase("news_thumbnail", fotopath)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal Menhapus Foto"})
 		return
 	}
 
