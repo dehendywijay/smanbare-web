@@ -45,7 +45,6 @@ export default function NewsForm({
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
-  const [status, setStatus] = useState<"published" | "draft">("draft");
   const [thumbnail, setThumbnail] = useState<File | null>(null);
 
   // useEffect untuk mengisi form dengan data awal saat mode edit
@@ -55,13 +54,11 @@ export default function NewsForm({
       setTitle(initialData.title);
       setContent(initialData.content);
       setCategory(initialData.category);
-      setStatus(initialData.status);
     } else {
       // Reset form jika tidak ada data awal (mode tambah)
       setTitle("");
       setContent("");
       setCategory("");
-      setStatus("draft");
     }
   }, [initialData, open]);
 
@@ -72,6 +69,7 @@ export default function NewsForm({
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", content);
+    formData.append("category", category);
 
     if (thumbnail) {
       formData.append("image", thumbnail);
@@ -136,24 +134,6 @@ export default function NewsForm({
                 <SelectItem value="pengumuman">Pengumuman</SelectItem>
                 <SelectItem value="prestasi">Prestasi</SelectItem>
                 <SelectItem value="event">Event</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          {/* Field untuk Status */}
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="status" className="text-right">
-              Status
-            </Label>
-            <Select
-              value={status}
-              onValueChange={(value: "published" | "draft") => setStatus(value)}
-            >
-              <SelectTrigger className="col-span-3">
-                <SelectValue placeholder="Pilih status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="published">Terbitkan</SelectItem>
-                <SelectItem value="draft">Draf</SelectItem>
               </SelectContent>
             </Select>
           </div>

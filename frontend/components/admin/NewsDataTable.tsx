@@ -9,17 +9,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Eye, Pencil } from "lucide-react";
+import { Pencil } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import NewsForm from "./NewsForm";
 import { formatDate } from "@/lib/date";
 import { useNewsData } from "@/hook/useNewsData";
@@ -33,45 +25,46 @@ import { api_news } from "@/constans/strings";
 export default function NewsDataTable() {
   const router = useRouter();
 
-  const deleteNews = async (slug: string) => {
-    const res = await axios.delete(`${api_news}/${slug}`);
-    if (res.status === 200) {
-      toast.success(res.data.message);
-      router.push("/admin");
-    } else {
-      toast.error(res.data.error);
-    }
-    return res;
-  };
-
   const {
     paginatedNews,
     isFormOpen,
     editingNews,
     currentPage,
     totalPages,
+    itemsPerPage,
+    searchQuery,
+    setSearchQuery,
     handleSave,
     handleEdit,
+    getNews,
     setIsFormOpen,
     setCurrentPage,
   } = useNewsData();
 
+  const deleteNews = async (slug: string) => {
+    const res = await axios.delete(`${api_news}/${slug}`);
+    if (res.status === 200) {
+      toast.success(res.data.message);
+      await getNews();
+    } else {
+      toast.error(res.data.error);
+    }
+    return res;
+  };
+
+
+
   return (
     <div className="space-y-4 ">
       <div className="flex flex-col md:flex-row justify-between gap-4">
-        <Input placeholder="Cari berita..." className="max-w-sm" />
-        <div className="flex items-center gap-2">
-          <Select>
-            <SelectTrigger className="w-45">
-              <SelectValue placeholder="Filter berdasarkan status" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">Semua</SelectItem>
-              <SelectItem value="published">Diterbitkan</SelectItem>
-              <SelectItem value="draft">Draf</SelectItem>
-            </SelectContent>
-          </Select>
-          <Button onClick={() => router.push(`/admin/news/add/`)}>
+        <Input
+          placeholder="Cari berita..."
+          className="max-w-sm"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <div className="flex items-center gap-2 cursor-point">
+          <Button onClick={() => router.push(`/admin/news/add/`)} className="cursor-pointer">
             Tambah Berita
           </Button>
         </div>
@@ -80,35 +73,24 @@ export default function NewsDataTable() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>ID</TableHead>
+              <TableHead className="w-16">No.</TableHead>
               <TableHead>Judul</TableHead>
               <TableHead>Tanggal</TableHead>
-              <TableHead>Status</TableHead>
               <TableHead className="text-right">Aksi</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {paginatedNews.map((newsItem) => (
+            {paginatedNews.map((newsItem, index) => (
               <TableRow key={newsItem.ID}>
-                <TableCell>{newsItem.ID}</TableCell>
+                <TableCell className="font-medium text-slate-500">
+                  {(currentPage - 1) * itemsPerPage + index + 1}
+                </TableCell>
                 <TableCell className="font-medium">
                   {newsItem.title.split(" ").slice(0, 10).join(" ")}...
                 </TableCell>
                 <TableCell>{formatDate(newsItem.CreatedAt)}</TableCell>
-                <TableCell>
-                  <Badge
-                    variant={
-                      newsItem.status === "published" ? "default" : "secondary"
-                    }
-                  >
-                    {newsItem.status}
-                  </Badge>
-                </TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">
-                    <Button variant="ghost" size="icon">
-                      <Eye className="h-4 w-4" />
-                    </Button>
                     <Button
                       variant="ghost"
                       size="icon"
