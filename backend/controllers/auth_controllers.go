@@ -15,19 +15,17 @@ import (
 var refreshSecret = []byte("REFRESH_SECRET_KEY")
 
 func LoginAdmin(c *gin.Context) {
-	// username := c.PostForm("username")
-	// password := c.PostForm("password")
-	var adminInput models.Admin
+	username := c.PostForm("username")
+	password := c.PostForm("password")
+	// var adminInput models.Admin
 
-	if err := c.ShouldBindJSON(&adminInput); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid input"})
-		return
-	}
+	// if err := c.ShouldBindJSON(&adminInput); err != nil {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "invalid input"})
+	// 	return
+	// }
 
-	username := adminInput.Username
-	password := adminInput.Password
 
-	if username == "" || password == "" {
+	if username == " " || password == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "username and password are required"})
 		return
 	}

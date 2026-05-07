@@ -3,7 +3,7 @@ package middleware
 import (
 	"fmt"
 	"net/http"
-	
+
 	"strings"
 
 	"github.com/gin-gonic/gin"
