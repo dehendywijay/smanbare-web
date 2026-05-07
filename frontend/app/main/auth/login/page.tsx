@@ -38,11 +38,11 @@ export default function LoginPage() {
         <div className="hidden lg:flex lg:w-1/2 flex-col justify-between p-16 text-white">
           <Link href="/" className="flex items-center gap-3 w-max group">
             <div className="relative w-12 h-12 transition-transform duration-500 group-hover:scale-110">
-              <Image 
-                src="/img/Smansa.ico" 
-                alt="Logo" 
-                fill 
-                className="object-contain drop-shadow-md" 
+              <Image
+                src="/img/Smansa.ico"
+                alt="Logo"
+                fill
+                className="object-contain drop-shadow-md"
               />
             </div>
             <div className="flex flex-col justify-center">
@@ -75,7 +75,7 @@ export default function LoginPage() {
         <div className="w-full lg:w-1/2 flex items-center justify-center p-8 md:p-16 relative">
           {/* Glass Panel Background */}
           <div className="absolute inset-y-0 right-0 w-full bg-white/10 backdrop-blur-5xl border-l border-white/5 shadow-1xl" />
-          
+
           <div className="w-full max-w-md space-y-10 relative z-10">
             <div className="space-y-2">
               <Link href="/" className="inline-flex lg:hidden items-center gap-2 text-white font-medium mb-6 hover:text-brand-secondary transition-colors">

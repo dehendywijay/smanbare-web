@@ -3,6 +3,7 @@ package middleware
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	"strings"
 
@@ -10,8 +11,15 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
+func getAccessSecret() []byte {
+	secret := os.Getenv("ACCESS_SECRET_KEY")
+	if secret == "" {
+		return []byte("ACCESS_SECRET_KEY")
+	}
+	return []byte(secret)
+}
+
 var refreshSecret = []byte("REFRESH_SECRET_KEY")
-var accessSecret = []byte("ACCESS_SECRET_KEY")
 
 func CORSMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
@@ -44,7 +52,7 @@ func AuthMiddleware() gin.HandlerFunc {
 		tokenString := strings.TrimPrefix(authHeader, "Bearer ")
 
 		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-			return accessSecret, nil
+			return getAccessSecret(), nil
 		})
 
 		if err != nil || !token.Valid {

@@ -42,7 +42,7 @@ export default function NewsForm({
   // State untuk setiap field dalam form
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [category, setCategory] = useState("");
+  const [kategori, setKategori] = useState("");
   const [thumbnail, setThumbnail] = useState<File | null>(null);
 
   // useEffect untuk mengisi form dengan data awal saat mode edit
@@ -51,12 +51,12 @@ export default function NewsForm({
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setTitle(initialData.title);
       setContent(initialData.content);
-      setCategory(initialData.category);
+      setKategori(initialData.kategori);
     } else {
       // Reset form jika tidak ada data awal (mode tambah)
       setTitle("");
       setContent("");
-      setCategory("");
+      setKategori("");
     }
   }, [initialData, open]);
 
@@ -67,7 +67,7 @@ export default function NewsForm({
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", content);
-    formData.append("category", category);
+    formData.append("category", kategori);
 
     if (thumbnail) {
       formData.append("image", thumbnail);
@@ -120,10 +120,10 @@ export default function NewsForm({
           </div>
           {/* Field untuk Kategori */}
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="category" className="text-right">
+            <Label htmlFor="kategori" className="text-right">
               Kategori
             </Label>
-            <Select value={category} onValueChange={setCategory}>
+            <Select value={kategori} onValueChange={setKategori}>
               <SelectTrigger className="col-span-3">
                 <SelectValue placeholder= {initialData ? initialData.kategori : "Pilih Kategori"} />
               </SelectTrigger>

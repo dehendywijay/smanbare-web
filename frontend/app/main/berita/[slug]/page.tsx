@@ -70,7 +70,7 @@ export default function Home({
                       <span>{news?.CreatedAt ? new Date(news.CreatedAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : "-"}</span>
                     </div>
                     <div className="px-3 py-1 rounded-full bg-brand-surface-alt border border-brand-primary/10 text-brand-primary text-[10px] font-bold uppercase tracking-wider">
-                      {news?.category || "Berita"}
+                      {news?.kategori || "Berita"}
                     </div>
                   </div>
 

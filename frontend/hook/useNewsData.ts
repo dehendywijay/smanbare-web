@@ -4,6 +4,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { News } from "@/types/type";
 import { fetchNewsList, createNews, updateNews, deleteNews } from "@/lib/newsApi";
+import { toast } from "sonner";
 
 /**
  * @description Custom hook untuk mengelola data berita dengan paginasi.
@@ -29,7 +30,7 @@ export function useNewsData(itemsPerPage: number = 5) {
     });
   }, [news, searchQuery]);
 
-  // Menghitung jumlah total halaman berdasarkan berita yang sudah difilter
+  
   const totalPages = Math.ceil(filteredNews.length / itemsPerPage);
 
   // Memoize data berita yang dipaginasi dari hasil filter
@@ -46,8 +47,13 @@ export function useNewsData(itemsPerPage: number = 5) {
   }, [searchQuery]);
 
   const getNews = async () => {
-    const newsData = await fetchNewsList();
-    setNews(newsData);
+    try {
+      const newsData = await fetchNewsList();
+      setNews(newsData);
+    } catch (error) {
+      console.error("Gagal mengambil berita:", error);
+      toast.error("Gagal mengambil daftar berita");
+    }
   };
 
   useEffect(() => {
@@ -62,20 +68,33 @@ export function useNewsData(itemsPerPage: number = 5) {
    * dan c.FormFile() untuk membaca data, bukan JSON.
    */
   const handleSave = async (formData: FormData) => {
-    if (editingNews) {
-      await updateNews(editingNews.slug, formData);
-    } else {
-      await createNews(formData);
+    try {
+      if (editingNews) {
+        await updateNews(editingNews.slug, formData);
+        toast.success("Berita berhasil diperbarui");
+      } else {
+        await createNews(formData);
+        toast.success("Berita berhasil ditambahkan");
+      }
+      await getNews();
+      setIsFormOpen(false);
+      setEditingNews(null);
+    } catch (error) {
+      console.error("Gagal menyimpan berita:", error);
+      toast.error("Gagal menyimpan berita");
     }
-    await getNews();
-    setIsFormOpen(false);
-    setEditingNews(null);
   };
 
   const handleDelete = async (slug: string) => {
     if (window.confirm("Apakah Anda yakin ingin menghapus berita ini?")) {
-      await deleteNews(slug);
-      await getNews();
+      try {
+        await deleteNews(slug);
+        toast.success("Berita berhasil dihapus");
+        await getNews();
+      } catch (error) {
+        console.error("Gagal menghapus berita:", error);
+        toast.error("Gagal menghapus berita");
+      }
     }
   };
 
