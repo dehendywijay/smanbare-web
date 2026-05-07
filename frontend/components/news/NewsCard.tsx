@@ -30,7 +30,7 @@ export default function NewsCard({ news }: NewsCardProps) {
       {/* Category Badge */}
       <div className="absolute top-4 left-4 z-20">
         <span className="px-3 py-1 rounded-full bg-brand-primary text-white text-[10px] font-bold uppercase tracking-wider shadow-lg">
-          {news.category || "Berita"}
+          {news.kategori}
         </span>
       </div>
 

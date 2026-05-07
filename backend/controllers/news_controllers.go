@@ -12,6 +12,7 @@ import (
 func CreateNews(c *gin.Context) {
 	title := c.PostForm("title")
 	content := c.PostForm("content")
+	kategori := c.PostForm("category")
 
 	if title == "" || content == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "title and content are required"})
@@ -34,6 +35,7 @@ func CreateNews(c *gin.Context) {
 
 	news := models.News{
 		Title:     title,
+		Kategori:  kategori,
 		Content:   content,
 		Thumbnail: publicURL,
 		Slug:      slug,

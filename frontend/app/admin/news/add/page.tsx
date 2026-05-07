@@ -30,6 +30,7 @@ export default function CreatePostForm() {
       const formData = new FormData();
       formData.append("title", title);
       formData.append("content", content);
+      formData.append("category", category);
 
       if (image) {
         formData.append("image", image);
@@ -78,9 +79,10 @@ export default function CreatePostForm() {
               <SelectValue placeholder="Pilih kategori" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="pengumuman">Pengumuman</SelectItem>
-              <SelectItem value="prestasi">Prestasi</SelectItem>
-              <SelectItem value="event">Event</SelectItem>
+              <SelectItem value="Pengumuman">Pengumuman</SelectItem>
+              <SelectItem value="Prestasi">Prestasi</SelectItem>
+              <SelectItem value="Event">Event</SelectItem>
+              <SelectItem value="Berita">Berita</SelectItem>
             </SelectContent>
           </Select>
         </div>
