@@ -48,14 +48,8 @@ export default function HeroSlideCaption({ title, subtitle, isActive }: HeroSlid
           isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         )}>
           <Link 
-            href="/main/auth/login" 
-            className="flex items-center gap-2 bg-brand-primary hover:bg-brand-primary-dark text-white px-8 py-4 rounded-full font-bold transition-all shadow-lg shadow-brand-primary/20 hover:shadow-brand-primary/40 active:scale-95"
-          >
-            Daftar Sekarang <ArrowRight size={20} />
-          </Link>
-          <Link 
             href="/main/tentang-kami" 
-            className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white backdrop-blur-md border border-white/30 px-8 py-4 rounded-full font-bold transition-all active:scale-95"
+            className="flex items-center gap-2 bg-brand-primary hover:bg-brand-primary-dark text-white px-8 py-4 rounded-full font-bold transition-all shadow-lg shadow-brand-primary/20 hover:shadow-brand-primary/40 active:scale-95"
           >
             Jelajahi Sekolah <Globe size={20} />
           </Link>
