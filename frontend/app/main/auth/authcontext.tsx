@@ -28,9 +28,6 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const API_LOGIN = "http://localhost:8080/api/auth/login";
-const API_REFRESH = "http://localhost:8080/api/auth/refresh";
-
 export function AuthProvider({
   children,
 }: {
@@ -39,7 +36,7 @@ export function AuthProvider({
   const [user, setUser] = useState<User | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  
+
 
   const refreshAccessToken = async () => {
     try {
@@ -48,7 +45,9 @@ export function AuthProvider({
       });
 
       const token = res.data.access_token;
-
+      if (token) {
+        localStorage.setItem("access_token", token);
+      }
       setAccessToken(token);
 
       return token;
@@ -69,31 +68,35 @@ export function AuthProvider({
     initAuth();
   }, []);
 
-  const login = async (
-    username: string,
-    password: string,
-  ) => {
-    const res = await axios.post(
-      api_login,
-      {
-        username,
-        password,
-      },
-      {
+  const login = async (username: string, password: string) => {
+    try {
+      const params = new URLSearchParams();
+      params.append("username", username);
+      params.append("password", password);
+
+      const res = await axios.post(api_login, params, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
         withCredentials: true,
-      },
-    );
+      });
 
-    const token = res.data.data.access_token;
-
-    setAccessToken(token);
-
-    setUser({
-      username: res.data.data.username,
-    });
+      const token = res.data.data.access_token;
+      if (token) {
+        localStorage.setItem("access_token", token);
+      }
+      setAccessToken(token);
+      setUser({
+        username: res.data.data.username,
+      });
+    } catch (error) {
+      console.error("Login Error:", error);
+      throw error;
+    }
   };
 
   const logout = () => {
+    localStorage.removeItem("access_token");
     setAccessToken(null);
     setUser(null);
   };
