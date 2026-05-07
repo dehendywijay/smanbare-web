@@ -33,7 +33,7 @@ export default function NavItem({ menu, isScrolled }: Props) {
             : "hover:text-white hover:bg-white/10"
         }`}
       >
-        <span>{menu.title}</span>
+        <span className="font-poppins">{menu.title}</span>
         {menu.subItems && (
           <ChevronDown 
             size={14} 
