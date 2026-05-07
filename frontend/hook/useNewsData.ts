@@ -41,6 +41,7 @@ export function useNewsData(itemsPerPage: number = 5) {
 
   // Reset ke halaman 1 jika kueri pencarian berubah
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCurrentPage(1);
   }, [searchQuery]);
 

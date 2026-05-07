@@ -1,13 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import {
-  GraduationCap,
-  Plus,
-  Search,
-  Pencil,
-  User,
-} from "lucide-react";
+import { useEffect, useState } from "react";
+import { GraduationCap, Plus, Search, Pencil, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -24,6 +18,7 @@ import { api_guru } from "@/constans/strings";
 import { useGuru } from "@/hook/useGuru";
 import GuruFormDialog from "@/components/admin/GuruFormDialog";
 import { AlertDialogDestructive } from "@/components/admin/alert-delete";
+import ReusablePagination from "@/components/shared/ReusablePagination";
 export default function AdminGuruStafPage() {
   const { guru, loading, error, refetch } = useGuru();
 
@@ -35,6 +30,15 @@ export default function AdminGuruStafPage() {
   const [nama, setNama] = useState("");
   const [jabatan, setJabatan] = useState("");
   const [foto, setFoto] = useState<File | null>(null);
+
+  const itemsPerPage = 10;
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setCurrentPage(1);
+  }, [searchQuery]);
 
   const resetForm = () => {
     setNama("");
@@ -95,7 +99,7 @@ export default function AdminGuruStafPage() {
       resetForm();
       setIsDialogOpen(false);
       await refetch();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error(error);
       toast.error(error?.response?.data?.error || "Terjadi kesalahan");
@@ -111,13 +115,20 @@ export default function AdminGuruStafPage() {
       s.nip?.includes(searchQuery),
   );
 
+  const paginatedStaff = filteredStaff.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage,
+  );
+
+  const totalPages = Math.ceil(filteredStaff.length / itemsPerPage);
+
   const handleDelete = async (id: number) => {
     try {
       const res = await axios.delete(`${api_guru}/${id}`);
 
       toast.success(res.data.message);
       await refetch();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(error?.response?.data?.error || "Gagal menghapus data");
     }
@@ -165,10 +176,10 @@ export default function AdminGuruStafPage() {
             </TableHeader>
 
             <TableBody>
-              {filteredStaff.map((person, index) => (
+              {paginatedStaff.map((person, index) => (
                 <TableRow key={person.ID}>
-                  <TableCell className="font-bold text-slate-400">
-                    {index + 1}
+                  <TableCell className="font-medium text-slate-500">
+                    {(currentPage - 1) * itemsPerPage + index + 1}
                   </TableCell>
 
                   <TableCell>
@@ -208,11 +219,9 @@ export default function AdminGuruStafPage() {
                         <Pencil size={16} />
                       </Button>
 
-                      
-                        <AlertDialogDestructive
-                          onDelete={() => handleDelete(person.ID)}
-                        />
-                      
+                      <AlertDialogDestructive
+                        onDelete={() => handleDelete(person.ID)}
+                      />
                     </div>
                   </TableCell>
                 </TableRow>
@@ -221,6 +230,12 @@ export default function AdminGuruStafPage() {
           </Table>
         </div>
       </div>
+
+      <ReusablePagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        onPageChange={setCurrentPage}
+      />
 
       <GuruFormDialog
         open={isDialogOpen}

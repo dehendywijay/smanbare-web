@@ -20,6 +20,7 @@ export type News = {
   CreatedAt: string | Date;
   UpdatedAt: string | Date;
   slug : string;
+  kategori : string;
 };
 
 export type Guru = {

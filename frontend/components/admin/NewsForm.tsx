@@ -125,13 +125,13 @@ export default function NewsForm({
             </Label>
             <Select value={category} onValueChange={setCategory}>
               <SelectTrigger className="col-span-3">
-                <SelectValue placeholder="Pilih kategori" />
+                <SelectValue placeholder= {initialData ? initialData.kategori : "Pilih Kategori"} />
               </SelectTrigger>
               <SelectContent>
-                {/* Kategori ini bisa diisi dari API */}
-                <SelectItem value="pengumuman">Pengumuman</SelectItem>
-                <SelectItem value="prestasi">Prestasi</SelectItem>
-                <SelectItem value="event">Event</SelectItem>
+              <SelectItem value="Pengumuman">Pengumuman</SelectItem>
+              <SelectItem value="Prestasi">Prestasi</SelectItem>
+              <SelectItem value="Event">Event</SelectItem>
+              <SelectItem value="Berita">Berita</SelectItem>
               </SelectContent>
             </Select>
           </div>
