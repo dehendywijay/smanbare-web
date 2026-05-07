@@ -156,7 +156,7 @@ export default function AdminGuruStafPage() {
             size={18}
           />
           <Input
-            placeholder="Cari nama atau NIP..."
+            placeholder="Cari nama..."
             className="pl-10 rounded-xl border-slate-200"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
