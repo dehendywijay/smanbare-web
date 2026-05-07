@@ -36,10 +36,22 @@ export default function LoginPage() {
       <div className="relative z-10 flex w-full">
         {/* Left Side: Visual Branding (Hidden on Mobile) */}
         <div className="hidden lg:flex lg:w-1/2 flex-col justify-between p-16 text-white">
-          <Link href="/" className="flex items-center gap-3 w-max hover:scale-110 transition-all duration-200">
-            <Image src="/img/Smansa.ico" alt="Logo" width={50} height={50} className="drop-shadow-md hover:scale-110 transition-all duration-500" />
-            <div className="font-heading font-bold text-xl tracking-tight drop-shadow-md">
-              SMA NEGERI 1 <br /> <span className="text-brand-secondary">BANGUNREJO</span>
+          <Link href="/" className="flex items-center gap-3 w-max group">
+            <div className="relative w-12 h-12 transition-transform duration-500 group-hover:scale-110">
+              <Image 
+                src="/img/Smansa.ico" 
+                alt="Logo" 
+                fill 
+                className="object-contain drop-shadow-md" 
+              />
+            </div>
+            <div className="flex flex-col justify-center">
+              <span className="font-heading font-bold text-xl leading-tight tracking-tight drop-shadow-md">
+                SMA Negeri 1 Bangunrejo
+              </span>
+              <span className="font-poppins font-medium text-[11px] leading-none tracking-wide text-brand-secondary/90 drop-shadow-sm">
+                B-STAR (Bertaqwa' Santun, Terampil' Adaptif, dan Responsip)
+              </span>
             </div>
           </Link>
 
