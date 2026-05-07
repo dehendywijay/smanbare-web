@@ -36,7 +36,7 @@ export default function CreatePostForm() {
   const [content, setContent] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [category, setCategory] = useState("");
+  const [kategori, setKategori] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
@@ -53,7 +53,7 @@ export default function CreatePostForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title || !content || !category) {
+    if (!title || !content || !kategori) {
       toast.error("Mohon isi semua field yang wajib");
       return;
     }
@@ -63,7 +63,7 @@ export default function CreatePostForm() {
       const formData = new FormData();
       formData.append("title", title);
       formData.append("content", content);
-      formData.append("category", category);
+      formData.append("category", kategori);
 
       if (image) {
         formData.append("image", image);
@@ -160,8 +160,8 @@ export default function CreatePostForm() {
 
                 {/* Category Selection */}
                 <div className="space-y-2">
-                  <Label htmlFor="category" className="text-sm font-medium text-slate-700">Kategori <span className="text-red-500">*</span></Label>
-                  <Select value={category} onValueChange={setCategory}>
+                  <Label htmlFor="kategori" className="text-sm font-medium text-slate-700">Kategori <span className="text-red-500">*</span></Label>
+                  <Select value={kategori} onValueChange={setKategori}>
                     <SelectTrigger className="h-11 border-slate-200 focus:ring-blue-400">
                       <div className="flex items-center gap-2">
                         <Layers className="w-4 h-4 text-slate-400" />
@@ -281,7 +281,7 @@ export default function CreatePostForm() {
                     {/* Category Badge Preview */}
                     <div className="flex items-center gap-2">
                       <span className="px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-blue-600 text-white rounded">
-                        {category || "KATEGORI"}
+                        {kategori || "KATEGORI"}
                       </span>
                       <span className="text-[11px] text-slate-400 uppercase font-medium tracking-tight">
                         {new Date().toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}

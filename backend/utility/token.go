@@ -1,13 +1,27 @@
 package utility
 
 import (
+	"os"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
 )
 
-var accessSecret = []byte("ACCESS_SECRET_KEY")
-var refreshSecret = []byte("REFRESH_SECRET_KEY")
+func getAccessSecret() []byte {
+	secret := os.Getenv("ACCESS_SECRET_KEY")
+	if secret == "" {
+		return []byte("ACCESS_SECRET_KEY")
+	}
+	return []byte(secret)
+}
+
+func getRefreshSecret() []byte {
+	secret := os.Getenv("REFRESH_SECRET_KEY")
+	if secret == "" {
+		return []byte("REFRESH_SECRET_KEY")
+	}
+	return []byte(secret)
+}
 func GenerateAccessToken(userID uint) (string, error) {
 	claims := jwt.MapClaims{
 		"user_id": userID,
@@ -16,7 +30,7 @@ func GenerateAccessToken(userID uint) (string, error) {
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString(accessSecret)
+	return token.SignedString(getAccessSecret())
 }
 
 func GenerateRefreshToken(userID uint) (string, error) {
@@ -27,5 +41,5 @@ func GenerateRefreshToken(userID uint) (string, error) {
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString(refreshSecret)
+	return token.SignedString(getRefreshSecret())
 }

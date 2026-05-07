@@ -111,8 +111,7 @@ export default function AdminGuruStafPage() {
 
   const filteredStaff = guru.filter(
     (s) =>
-      s.nama?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      s.nip?.includes(searchQuery),
+      s.nama?.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   const paginatedStaff = filteredStaff.slice(

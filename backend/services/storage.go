@@ -36,7 +36,7 @@ func UploadToSupabase(bucket, objectPath, contentType string, fileBytes []byte) 
 
 	body, _ := io.ReadAll(resp.Body)
 	if resp.StatusCode >= 300 {
-		return "", fmt.Errorf("File Terlalu Besar. Maksimal 5MB: %s", string(body))
+		return "", fmt.Errorf("Gagal upload ke Supabase (Status %d): %s", resp.StatusCode, string(body))
 	}
 
 	publicURL := fmt.Sprintf("%s/storage/v1/object/public/%s/%s", supabaseURL, bucket, objectPath)
