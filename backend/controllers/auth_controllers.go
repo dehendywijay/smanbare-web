@@ -48,7 +48,7 @@ func LoginAdmin(c *gin.Context) {
 		admin.RefreshToken,
 		7*24*60*60, // 7 hari
 		"/",
-		"localhost",
+		"",
 		false, // true kalau pakai HTTPS
 		true,  // HttpOnly
 	)

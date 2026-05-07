@@ -19,7 +19,6 @@ func getAccessSecret() []byte {
 	return []byte(secret)
 }
 
-var refreshSecret = []byte("REFRESH_SECRET_KEY")
 
 func CORSMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {

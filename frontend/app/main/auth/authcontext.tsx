@@ -40,7 +40,7 @@ export function AuthProvider({
 
   const refreshAccessToken = async () => {
     try {
-      const res = await axios.get(api_refresh, {
+      const res = await axios.post(api_refresh, {}, {
         withCredentials: true,
       });
 
@@ -61,6 +61,10 @@ export function AuthProvider({
 
   useEffect(() => {
     const initAuth = async () => {
+      const storedToken = localStorage.getItem("access_token");
+      if (storedToken) {
+        setAccessToken(storedToken);
+      }     
       await refreshAccessToken();
       setLoading(false);
     };

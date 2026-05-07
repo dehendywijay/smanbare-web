@@ -3,6 +3,7 @@
 import { Bell, User, Menu, LogOut } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useAuth } from "@/app/main/auth/authcontext";
 
 const navItems = [
   { name: "Dashboard", href: "/admin" },
@@ -21,6 +22,7 @@ interface HeaderProps {
 export default function Header({ onMenuToggle }: HeaderProps) {
   const pathname = usePathname();
   const router = useRouter();
+  const { logout } = useAuth();
 
   // Find current page name from navItems
   const currentPage = navItems.find((item) => item.href === pathname)?.name || "Dashboard";
@@ -36,6 +38,7 @@ export default function Header({ onMenuToggle }: HeaderProps) {
 
   const handleLogout = () => {
     localStorage.removeItem("admin_name");
+    logout();
     router.push("/main/auth/login");
   };
 
