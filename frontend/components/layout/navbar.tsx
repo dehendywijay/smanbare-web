@@ -13,7 +13,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const lastScrollY = useRef(0);
-  
+
   const closeMenu = () => {
     setIsMobileMenuOpen(false);
     setOpenMobileItem(null);
@@ -49,33 +49,31 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed w-full z-50 transition-all duration-500 ease-in-out ${
-          isVisible ? "translate-y-0" : "-translate-y-full"
-        } ${
-          isScrolled 
-            ? "bg-white/80 min-[900px]:backdrop-blur-sm py-3 shadow-sm" 
+        className={`fixed w-full z-50 font-poppins transition-all duration-500 ease-in-out ${isVisible ? "translate-y-0" : "-translate-y-full"
+          } ${isScrolled
+            ? "bg-white/80 min-[900px]:backdrop-blur-sm py-3 shadow-sm"
             : "bg-transparent py-5"
-        }`}
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             {/* Logo Section */}
             <Link href="/" className="flex items-center gap-3 group shrink-0">
               <div className="relative w-10 h-10 min-[900px]:w-12 min-[900px]:h-12 transition-transform duration-300 group-hover:scale-110">
-                <Image 
-                  src="/img/Smansa.ico" 
-                  alt="Logo SMAN 1 Bangunrejo" 
-                  fill 
+                <Image
+                  src="/img/Smansa.ico"
+                  alt="Logo SMAN 1 Bangunrejo"
+                  fill
                   sizes="48px"
                   className="object-contain"
                 />
               </div>
-              <div className="flex flex-col">
-                <span className={`font-heading font-bold text-base min-[900px]:text-lg leading-tight tracking-tight transition-colors duration-300 ${isScrolled ? "text-brand-primary" : "text-white"}`}>
-                  SMA Negeri 1
+              <div className="flex flex-col justify-center">
+                <span className={`font-heading font-bold text-xs sm:text-sm min-[900px]:text-base leading-tight tracking-tight transition-colors duration-300 ${isScrolled ? "text-brand-primary" : "text-white"}`}>
+                  SMA Negeri 1 Bangunrejo
                 </span>
-                <span className={`font-heading font-bold text-base min-[900px]:text-lg leading-tight tracking-tight transition-colors duration-300 ${isScrolled ? "text-brand-primary-dark" : "text-white/90"}`}>
-                  Bangunrejo
+                <span className={`font-poppins font-medium text-[9px] sm:text-[11px] min-[900px]:text-[13px] leading-none tracking-wide transition-colors duration-300 ${isScrolled ? "text-brand-primary-dark/90" : "text-white/90"}`}>
+                  B-STAR (Bertaqwa' Santun, Terampil' Adaptif, dan Responsip)
                 </span>
               </div>
             </Link>
@@ -84,20 +82,19 @@ export default function Navbar() {
             <div className="hidden min-[900px]:flex items-center gap-2">
               <div className="flex items-center gap-1">
                 {menuData.map((item, i) => (
-                  <div key={i} className={`font-medium text-sm transition-colors duration-300 ${isScrolled ? "text-slate-700" : "text-white/90"}`}>
+                  <div key={i} className={`font-medium text-[13px] transition-colors duration-300 ${isScrolled ? "text-slate-700" : "text-white/90"}`}>
                     <NavItem menu={item} isScrolled={isScrolled} />
                   </div>
                 ))}
               </div>
 
               {/* Login Button Desktop */}
-              <Link 
-                href="/main/auth/login" 
-                className={`ml-4 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 shadow-md hover:shadow-lg active:scale-95 ${
-                  isScrolled 
-                    ? "bg-brand-primary text-white hover:bg-brand-primary-dark" 
+              <Link
+                href="/main/auth/login"
+                className={`ml-4 px-5 py-2 rounded-full text-[13px] font-poppins font-bold transition-all duration-300 shadow-md hover:shadow-lg active:scale-95 ${isScrolled
+                    ? "bg-brand-primary text-white hover:bg-brand-primary-dark"
                     : "bg-white text-brand-primary hover:bg-brand-surface-alt"
-                }`}
+                  }`}
               >
                 Login
               </Link>
@@ -105,9 +102,8 @@ export default function Navbar() {
 
             {/* Mobile Menu Toggle */}
             <button
-              className={`min-[900px]:hidden p-2 rounded-lg transition-colors ${
-                isScrolled ? "text-brand-primary hover:bg-slate-100" : "text-white hover:bg-white/10"
-              }`}
+              className={`min-[900px]:hidden p-2 rounded-lg transition-colors ${isScrolled ? "text-brand-primary hover:bg-slate-100" : "text-white hover:bg-white/10"
+                }`}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle menu"
             >
@@ -119,22 +115,20 @@ export default function Navbar() {
 
       {/* Mobile Menu Overlay - Moved outside transformed nav */}
       <div
-        className={`min-[900px]:hidden fixed inset-0 z-[60] bg-slate-900/60 backdrop-blur-sm transition-opacity duration-300 ${
-          isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
+        className={`min-[900px]:hidden fixed inset-0 z-[60] bg-slate-900/60 backdrop-blur-sm transition-opacity duration-300 ${isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          }`}
         onClick={closeMenu}
       />
 
       {/* Mobile Menu Sidebar - Moved outside transformed nav */}
       <div
-        className={`min-[900px]:hidden fixed top-0 right-0 z-[70] h-full w-[280px] bg-white shadow-2xl transition-transform duration-500 ease-out ${
-          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`min-[900px]:hidden fixed top-0 right-0 z-[70] h-full w-[280px] bg-white shadow-2xl transition-transform duration-500 ease-out ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         <div className="flex flex-col h-full">
           <div className="p-6 border-b border-slate-100 flex items-center justify-between">
             <span className="font-heading font-bold text-brand-primary text-xl">Menu</span>
-            <button 
+            <button
               onClick={closeMenu}
               aria-label="Tutup menu"
               className="p-2 text-slate-400 hover:text-brand-primary"
@@ -142,7 +136,7 @@ export default function Navbar() {
               <X size={24} />
             </button>
           </div>
-          
+
           <div className="flex-1 overflow-y-auto py-4">
             {menuData.map((item, i) => (
               <div key={i} className="px-4">
@@ -155,7 +149,7 @@ export default function Navbar() {
                     >
                       <span>{item.title}</span>
                       <span className={`transition-transform duration-300 ${openMobileItem === i ? "rotate-180" : ""}`}>
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
                       </span>
                     </button>
                     <div className={`overflow-hidden transition-all duration-300 ease-in-out ${openMobileItem === i ? "max-h-96 opacity-100 mb-2" : "max-h-0 opacity-0"}`}>
