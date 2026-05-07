@@ -12,8 +12,11 @@ import (
 func CreateGuru(c *gin.Context) {
 	nama := c.PostForm("nama")
 	jabatan := c.PostForm("jabatan")
-	
 
+	if nama == "" || jabatan == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "nama and jabatan are required"})
+		return
+	}
 	fileBytes, objectPath, contentType, err := utility.ProcessImageUpload(c, "foto")
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -59,6 +62,10 @@ func EditGuru(c *gin.Context) {
 	nama := c.PostForm("nama")
 	jabatan := c.PostForm("jabatan")
 
+	if nama == "" || jabatan == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "nama and jabatan are required"})
+		return
+	}
 	
 	guru := models.Guru{
 		Nama:    nama,

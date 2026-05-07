@@ -5,6 +5,7 @@ import (
 	"gin-app/services"
 	"gin-app/utility"
 	"net/http"
+	"os"
 	
 
 	"github.com/gin-gonic/gin"
@@ -12,7 +13,13 @@ import (
 )
 
 
-var refreshSecret = []byte("REFRESH_SECRET_KEY")
+func getRefreshSecret() []byte {
+	secret := os.Getenv("REFRESH_SECRET_KEY")
+	if secret == "" {
+		return []byte("REFRESH_SECRET_KEY")
+	}
+	return []byte(secret)
+}
 
 func LoginAdmin(c *gin.Context) {
 	username := c.PostForm("username")
@@ -25,7 +32,7 @@ func LoginAdmin(c *gin.Context) {
 	// }
 
 
-	if username == " " || password == "" {
+	if username == "" || password == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "username and password are required"})
 		return
 	}
@@ -91,7 +98,7 @@ func RefreshToken(c *gin.Context) {
 	}
 
 	token, err := jwt.Parse(refreshToken, func(token *jwt.Token) (interface{}, error) {
-		return refreshSecret, nil
+		return getRefreshSecret(), nil
 	})
 
 	if err != nil || !token.Valid {
