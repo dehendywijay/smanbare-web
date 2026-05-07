@@ -1,7 +1,7 @@
 "use client";
 
 import RevealOnScroll from "@/components/animations/RevealOnScroll";
-import { teachersData } from "@/lib/homeData";
+
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -22,7 +22,7 @@ export default function TeachersSection() {
               <span className="text-brand-primary">Kependidikan</span>
             </h2>
             <p className="text-slate-600 text-lg">
-              SMA Negeri 1 Bangunrejo didukung oleh 48 tenaga pendidik
+              SMA Negeri 1 Bangunrejo didukung oleh {guru.length} tenaga pendidik
               profesional dan berpengalaman di bidangnya masing-masing.
             </p>
           </div>
@@ -36,7 +36,7 @@ export default function TeachersSection() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {guru.map((teacher, index) => (
+          {guru.slice(0, 4).map((teacher, index)  => (
             <RevealOnScroll
               key={index}
               direction="up"

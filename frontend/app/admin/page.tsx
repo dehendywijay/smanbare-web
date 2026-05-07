@@ -1,4 +1,5 @@
-import React from 'react'
+"use client";
+
 import { 
   Newspaper, 
   UserCheck, 
@@ -9,14 +10,23 @@ import {
   ArrowRight
 } from "lucide-react";
 import Link from 'next/link';
+import { useGuru } from '@/hook/useGuru';
+import { useNews } from "@/hook/useNews";
+import { useEskul } from "@/hook/UseEskul";
+import { useAlumni } from "@/hook/useAlumni";
 
 export default function AdminPage() {
+  const {guru} = useGuru();
+  const {news} = useNews();
+  const {eskul} = useEskul();
+  const {alumni} = useAlumni();
+
   const stats = [
-    { name: "Total Berita", value: "12", icon: Newspaper, color: "text-blue-600", bg: "bg-blue-50", border: "border-blue-100", href: "/admin/news" },
+    { name: "Total Berita", value: news.length, icon: Newspaper, color: "text-blue-600", bg: "bg-blue-50", border: "border-blue-100", href: "/admin/news" },
     { name: "Kepala Sekolah", value: "1", icon: UserCheck, color: "text-indigo-600", bg: "bg-indigo-50", border: "border-indigo-100", href: "/admin/kepala-sekolah" },
-    { name: "Total Guru & Staf", value: "45", icon: GraduationCap, color: "text-emerald-600", bg: "bg-emerald-50", border: "border-emerald-100", href: "/admin/guru-staf" },
-    { name: "Total Ekskul", value: "6", icon: Trophy, color: "text-amber-600", bg: "bg-amber-50", border: "border-amber-100", href: "/admin/ekskul" },
-    { name: "Total Alumni", value: "234", icon: BookOpen, color: "text-purple-600", bg: "bg-purple-50", border: "border-purple-100", href: "/admin/alumni" },
+    { name: "Total Guru & Staf", value: guru.length, icon: GraduationCap, color: "text-emerald-600", bg: "bg-emerald-50", border: "border-emerald-100", href: "/admin/guru-staf" },
+    { name: "Total Ekskul", value: eskul.length, icon: Trophy, color: "text-amber-600", bg: "bg-amber-50", border: "border-amber-100", href: "/admin/ekskul" },
+    { name: "Total Alumni", value: alumni.length, icon: BookOpen, color: "text-purple-600", bg: "bg-purple-50", border: "border-purple-100", href: "/admin/alumni" },
     { name: "Total Galeri", value: "48", icon: Images, color: "text-pink-600", bg: "bg-pink-50", border: "border-pink-100", href: "/admin/galeri" },
   ];
 

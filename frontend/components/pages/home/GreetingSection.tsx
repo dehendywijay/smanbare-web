@@ -10,6 +10,9 @@ import { useKepalaDetail } from "@/hook/useKepala";
 export default function GreetingSection() {
   const { kepala, loading, error } = useKepalaDetail(1);
 
+  loading;
+  error;
+
   return (
     <section className="relative py-24 md:py-32 bg-white overflow-hidden">
       {/* Background Decorative Element */}
@@ -27,7 +30,7 @@ export default function GreetingSection() {
 
             <div className="relative h-full w-full rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src={kepala?.foto || ""}
+                src={kepala?.foto || "/default-kepala.jpg"}
                 alt="Kepala Sekolah"
                 fill
                 className="object-cover transition-transform duration-700 hover:scale-105"

@@ -52,51 +52,6 @@ export const facilities = [
 ];
 
 
-//data bagian page ekskul
-export const ekskulList = [
-  {
-    slug: "badminton",
-    title: "Badminton",
-    href: "/main/ekskul/badminton",
-    description: "Asah kemampuanmu di lapangan dan jadilah juara bersama tim badminton SMANSA.",
-    image: "https://images.unsplash.com/photo-1521537634582-7cb0237d70b5?q=80&w=600&auto=format&fit=crop",
-    content: "Ekstrakurikuler badminton di SMANSA adalah wadah bagi siswa untuk menyalurkan minat dan bakat mereka di cabang olahraga yang sangat populer di Indonesia ini. Kami memiliki fasilitas lapangan yang memadai dan pelatih berpengalaman yang siap membimbing para siswa.",
-    schedule: "Selasa & Kamis, 15:30 - 17:30",
-    coach: "Bpk. Andi Setiawan, S.Pd.",
-  },
-  {
-    slug: "paskibra",
-    title: "Paskibra",
-    href: "/main/ekskul/paskibra",
-    description: "Bentuk kedisiplinan, kepemimpinan, dan cinta tanah air melalui baris-berbaris.",
-    image: "https://images.unsplash.com/photo-1588392382834-a891154bca4d?q=80&w=600&auto=format&fit=crop",
-    content: "Paskibra SMANSA bukan sekadar latihan baris-berbaris. Di sini, siswa ditempa untuk memiliki kedisiplinan tinggi, semangat patriotisme, dan kemampuan kepemimpinan yang tangguh.",
-    schedule: "Rabu & Sabtu, 15:00 - 17:00",
-    coach: "Ibu Siti Aminah, S.Pd.",
-  },
-  {
-    slug: "pramuka",
-    title: "Pramuka",
-    description: "Belajar kemandirian, kerja sama, dan keterampilan bertahan hidup di alam terbuka.",
-    href: "/main/ekskul/pramuka",
-    image: "https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?q=80&w=600&auto=format&fit=crop",
-    content: "Gerakan Pramuka SMANSA aktif dalam berbagai kegiatan kepanduan, mulai dari perkemahan, survival skill, hingga pengabdian masyarakat.",
-    schedule: "Jumat, 14:00 - 16:30",
-    coach: "Bpk. Kurniawan, M.Pd.",
-  },
-  {
-    slug: "seni-tari",
-    title: "Seni Tari & Musik",
-    description: "Ekspresikan dirimu melalui alunan musik dan gerak tari tradisional maupun modern.",
-    href: "/main/ekskul/seni-tari",
-    image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=600&auto=format&fit=crop",
-    content: "Wadah bagi para seniman muda SMANSA untuk mengeksplorasi kreativitas dalam seni tari tradisional, modern dance, hingga ansambel musik.",
-    schedule: "Senin & Rabu, 15:30 - 17:30",
-    coach: "Ibu Maya Sari, S.Sn.",
-  },
-];
-
-// Data Galeri
 export const galleryData = {
   dokumentasi: [
     { title: "Upacara Hari Guru", date: "25 Nov 2023", image: "https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=800&auto=format&fit=crop" },
@@ -110,11 +65,8 @@ export const galleryData = {
   ]
 };
 
-// Data Alumni Dummy
-export const alumniData = [
-  { id: 1, name: "Budi Santoso", university: "Universitas Indonesia", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop" },
-  { id: 2, name: "Siti Aminah", university: "Institut Teknologi Bandung", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=400&auto=format&fit=crop" },
-  { id: 3, name: "Iwan Setiawan", university: "Universitas Gadjah Mada", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop" },
-  { id: 4, name: "Rina Kartika", university: "Universitas Lampung", image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop" },
-  { id: 5, name: "Hendy Wijaya", university: "IPB University", image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop" },
-];
+export const Kategori={
+  berita : "Berita",
+  pengumuman : "Pengumuman",
+  prestasi : "Prestasi"
+}

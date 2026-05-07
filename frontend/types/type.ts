@@ -55,3 +55,4 @@ export type KepalaSekolah = {
   content : string;
   foto: string;
 };
+
