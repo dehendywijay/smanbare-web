@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { UserCheck, Save, Image as ImageIcon, Upload } from "lucide-react";
+import { UserCheck, Save, Image as ImageIcon, Upload, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import TextEditor from "@/components/text-editor";
@@ -150,12 +150,14 @@ export default function AdminKepalaSekolahPage() {
             </div>
           </div>
 
-          <div className="flex justify-end pt-4 border-t border-slate-100">
+          <div className="flex justify-end gap-3 pt-4 border-t border-slate-100">
             <Button
-              className="rounded-xl px-8 bg-brand-primary hover:bg-brand-primary/90 flex items-center gap-2"
+              type="button"
+              variant="ghost"
+              className="rounded-xl px-8 text-slate-500 hover:text-slate-700 hover:bg-slate-100 flex items-center gap-2"
               onClick={() => setIsEdit(false)}
             >
-              <Save size={18} /> Kembali
+              <ArrowLeft size={18} /> Kembali
             </Button>
             <Button
               type="submit"
