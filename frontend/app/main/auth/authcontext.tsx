@@ -9,7 +9,7 @@ import {
 } from "react";
 
 import axios from "axios";
-import { api, api_login, api_refresh } from "@/constans/strings";
+import { api, api_refresh } from "@/constans/strings";
 
 interface User {
   username: string;
@@ -71,10 +71,10 @@ export function AuthProvider({
 
   const login = async (
     username: string,
-    password: string,
+    password: string
   ) => {
     const res = await axios.post(
-      api_login,
+      API_LOGIN,
       {
         username,
         password,

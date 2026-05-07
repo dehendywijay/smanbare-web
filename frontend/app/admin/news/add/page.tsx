@@ -77,6 +77,7 @@ export default function CreatePostForm() {
       setTitle("");
       setContent("");
       setImage(null);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error(error);
       toast.error(error?.response?.data?.error || "Terjadi kesalahan saat menyimpan berita");
