@@ -36,6 +36,7 @@ export async function fetchNewsBySlug(slug: string): Promise<News> {
 export async function createNews(formData: FormData): Promise<News> {
   const { data } = await apiClient.post<News>("/news", formData, {
     headers: { "Content-Type": "multipart/form-data" },
+    withCredentials: true
   });
   return data;
 }

@@ -15,21 +15,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { 
-  PlusCircle, 
-  Image as ImageIcon, 
-  Type, 
-  Layers, 
-  Eye, 
-  Save, 
+import {
+  PlusCircle,
+  Image as ImageIcon,
+  Type,
+  Layers,
+  Eye,
+  Save,
   ArrowLeft,
-  X
+  X,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
+import { useAuth } from "@/app/main/auth/authcontext";
 
 export default function CreatePostForm() { 
   const [title, setTitle] = useState("");
@@ -38,6 +44,7 @@ export default function CreatePostForm() {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [kategori, setKategori] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { accessToken } = useAuth();
 
   const router = useRouter();
 
@@ -69,7 +76,13 @@ export default function CreatePostForm() {
         formData.append("image", image);
       }
 
-      const res = await axios.post(`${api_news}`, formData);
+      const res = await axios.post(`${api_news}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        withCredentials: true,
+      });
 
       toast.success(res.data.message || "Berita berhasil ditambahkan");
       router.push("/admin/news");
@@ -77,9 +90,13 @@ export default function CreatePostForm() {
       setTitle("");
       setContent("");
       setImage(null);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error(error);
-      toast.error(error?.response?.data?.error || "Terjadi kesalahan saat menyimpan berita");
+      toast.error(
+        error?.response?.data?.error ||
+          "Terjadi kesalahan saat menyimpan berita",
+      );
     } finally {
       setIsLoading(false);
     }
@@ -91,7 +108,7 @@ export default function CreatePostForm() {
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
           <div className="space-y-1">
-            <button 
+            <button
               onClick={() => router.back()}
               className="group flex items-center text-sm text-slate-500 hover:text-blue-600 transition-colors mb-2"
             >
@@ -102,19 +119,21 @@ export default function CreatePostForm() {
               <PlusCircle className="w-8 h-8 text-blue-600" />
               Tambah Berita Baru
             </h1>
-            <p className="text-slate-500">Buat dan publikasikan berita terbaru untuk civitas SMANSA.</p>
+            <p className="text-slate-500">
+              Buat dan publikasikan berita terbaru untuk civitas SMANSA.
+            </p>
           </div>
-          
+
           <div className="flex items-center gap-3">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               onClick={() => router.back()}
               className="hidden sm:flex"
             >
               Batal
             </Button>
-            <Button 
-              onClick={handleSubmit} 
+            <Button
+              onClick={handleSubmit}
               disabled={isLoading}
               className="bg-blue-600 hover:bg-blue-700 text-white px-6 shadow-lg shadow-blue-200"
             >
@@ -142,12 +161,19 @@ export default function CreatePostForm() {
                   <Type className="w-5 h-5 text-blue-500" />
                   Konten Berita
                 </CardTitle>
-                <CardDescription>Isi detail informasi berita di bawah ini.</CardDescription>
+                <CardDescription>
+                  Isi detail informasi berita di bawah ini.
+                </CardDescription>
               </CardHeader>
               <CardContent className="p-6 space-y-6">
                 {/* Title Input */}
                 <div className="space-y-2">
-                  <Label htmlFor="title" className="text-sm font-medium text-slate-700">Judul Berita <span className="text-red-500">*</span></Label>
+                  <Label
+                    htmlFor="title"
+                    className="text-sm font-medium text-slate-700"
+                  >
+                    Judul Berita <span className="text-red-500">*</span>
+                  </Label>
                   <Input
                     id="title"
                     type="text"
@@ -160,7 +186,12 @@ export default function CreatePostForm() {
 
                 {/* Category Selection */}
                 <div className="space-y-2">
-                  <Label htmlFor="kategori" className="text-sm font-medium text-slate-700">Kategori <span className="text-red-500">*</span></Label>
+                  <Label
+                    htmlFor="kategori"
+                    className="text-sm font-medium text-slate-700"
+                  >
+                    Kategori <span className="text-red-500">*</span>
+                  </Label>
                   <Select value={kategori} onValueChange={setKategori}>
                     <SelectTrigger className="h-11 border-slate-200 focus:ring-blue-400">
                       <div className="flex items-center gap-2">
@@ -179,11 +210,15 @@ export default function CreatePostForm() {
 
                 {/* Rich Text Editor */}
                 <div className="space-y-2">
-                  <Label className="text-sm font-medium text-slate-700">Isi Berita <span className="text-red-500">*</span></Label>
+                  <Label className="text-sm font-medium text-slate-700">
+                    Isi Berita <span className="text-red-500">*</span>
+                  </Label>
                   <div className="rounded-lg border border-slate-200 overflow-hidden focus-within:ring-2 focus-within:ring-blue-400/20 focus-within:border-blue-400 transition-all">
                     <TextEditor onChange={setContent} value={content} />
                   </div>
-                  <p className="text-xs text-slate-400 italic">Gunakan toolbar untuk memformat teks Anda.</p>
+                  <p className="text-xs text-slate-400 italic">
+                    Gunakan toolbar untuk memformat teks Anda.
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -195,23 +230,31 @@ export default function CreatePostForm() {
                   <ImageIcon className="w-5 h-5 text-purple-500" />
                   Gambar Utama
                 </CardTitle>
-                <CardDescription>Tambahkan gambar sampul untuk berita ini.</CardDescription>
+                <CardDescription>
+                  Tambahkan gambar sampul untuk berita ini.
+                </CardDescription>
               </CardHeader>
               <CardContent className="p-6">
                 <div className="space-y-4">
                   {!previewUrl ? (
-                    <div 
+                    <div
                       className="relative border-2 border-dashed border-slate-200 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 hover:bg-slate-50 hover:border-blue-300 transition-all cursor-pointer group"
-                      onClick={() => document.getElementById("image-upload")?.click()}
+                      onClick={() =>
+                        document.getElementById("image-upload")?.click()
+                      }
                     >
                       <div className="w-16 h-16 bg-white rounded-full shadow-sm flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                         <ImageIcon className="w-8 h-8 text-slate-400 group-hover:text-blue-500" />
                       </div>
-                      <p className="text-sm font-medium text-slate-600">Klik untuk upload atau drag and drop</p>
-                      <p className="text-xs text-slate-400 mt-1">PNG, JPG atau WEBP (Maks. 2MB)</p>
-                      <input 
+                      <p className="text-sm font-medium text-slate-600">
+                        Klik untuk upload atau drag and drop
+                      </p>
+                      <p className="text-xs text-slate-400 mt-1">
+                        PNG, JPG atau WEBP (Maks. 2MB)
+                      </p>
+                      <input
                         id="image-upload"
-                        type="file" 
+                        type="file"
                         accept="image/*"
                         className="hidden"
                         onChange={(e) => setImage(e.target.files?.[0] || null)}
@@ -219,24 +262,26 @@ export default function CreatePostForm() {
                     </div>
                   ) : (
                     <div className="relative rounded-xl overflow-hidden shadow-md group">
-                      <img 
-                        src={previewUrl} 
-                        alt="Preview" 
+                      <img
+                        src={previewUrl}
+                        alt="Preview"
                         className="w-full h-64 object-cover"
                       />
                       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
-                        <Button 
+                        <Button
                           type="button"
-                          variant="secondary" 
+                          variant="secondary"
                           size="sm"
-                          onClick={() => document.getElementById("image-upload")?.click()}
+                          onClick={() =>
+                            document.getElementById("image-upload")?.click()
+                          }
                         >
                           <ImageIcon className="w-4 h-4 mr-2" />
                           Ganti Gambar
                         </Button>
-                        <Button 
+                        <Button
                           type="button"
-                          variant="destructive" 
+                          variant="destructive"
                           size="sm"
                           onClick={() => {
                             setImage(null);
@@ -247,9 +292,9 @@ export default function CreatePostForm() {
                           Hapus
                         </Button>
                       </div>
-                      <input 
+                      <input
                         id="image-upload"
-                        type="file" 
+                        type="file"
                         accept="image/*"
                         className="hidden"
                         onChange={(e) => setImage(e.target.files?.[0] || null)}
@@ -271,7 +316,10 @@ export default function CreatePostForm() {
                       <Eye className="w-5 h-5 text-blue-500" />
                       Pratinjau Live
                     </CardTitle>
-                    <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-100">
+                    <Badge
+                      variant="outline"
+                      className="bg-blue-50 text-blue-700 border-blue-100"
+                    >
                       Draft
                     </Badge>
                   </div>
@@ -284,7 +332,11 @@ export default function CreatePostForm() {
                         {kategori || "KATEGORI"}
                       </span>
                       <span className="text-[11px] text-slate-400 uppercase font-medium tracking-tight">
-                        {new Date().toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}
+                        {new Date().toLocaleDateString("id-ID", {
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                        })}
                       </span>
                     </div>
 
@@ -296,7 +348,11 @@ export default function CreatePostForm() {
                     {/* Image Preview in Card */}
                     <div className="aspect-video w-full rounded-lg bg-slate-100 overflow-hidden relative">
                       {previewUrl ? (
-                        <img src={previewUrl} alt="Preview" className="w-full h-full object-cover" />
+                        <img
+                          src={previewUrl}
+                          alt="Preview"
+                          className="w-full h-full object-cover"
+                        />
                       ) : (
                         <div className="w-full h-full flex flex-col items-center justify-center text-slate-300">
                           <ImageIcon className="w-10 h-10 mb-2 opacity-20" />
@@ -315,7 +371,10 @@ export default function CreatePostForm() {
                     </div>
 
                     <div className="pt-4 border-t border-slate-50">
-                      <Button variant="ghost" className="w-full text-blue-600 hover:text-blue-700 hover:bg-blue-50 justify-between group text-xs font-semibold">
+                      <Button
+                        variant="ghost"
+                        className="w-full text-blue-600 hover:text-blue-700 hover:bg-blue-50 justify-between group text-xs font-semibold"
+                      >
                         Baca Selengkapnya
                         <PlusCircle className="w-4 h-4 group-hover:rotate-90 transition-transform" />
                       </Button>
@@ -354,4 +413,3 @@ export default function CreatePostForm() {
     </div>
   );
 }
-
