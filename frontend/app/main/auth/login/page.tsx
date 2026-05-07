@@ -1,22 +1,39 @@
 "use client";
 
+import { toast } from "sonner";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Mail, Lock, ArrowRight, Home } from "lucide-react";
+import { useAuth } from "../authcontext";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const { login } = useAuth();
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
+  console.log(username, password);
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simpan nama ke localStorage agar bisa dibaca di Header
-    localStorage.setItem("admin_name", username);
-    // Logic login ditunda sesuai permintaan
-    router.push("/admin");
+
+    try {
+      setLoading(true);
+
+      await login(username, password);
+      toast.success("Login berhasil");
+      router.push("/admin");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      toast.error(
+        error?.response?.data?.error || "Username atau password salah",
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -50,7 +67,7 @@ export default function LoginPage() {
                 SMA Negeri 1 Bangunrejo
               </span>
               <span className="font-poppins font-medium text-[11px] leading-none tracking-wide text-brand-secondary/90 drop-shadow-sm">
-                B-STAR (Bertaqwa' Santun, Terampil' Adaptif, dan Responsip)
+                B-STAR (Bertaqwa&apos; Santun, Terampil&apos; Adaptif, dan Responsip)
               </span>
             </div>
           </Link>
@@ -61,7 +78,8 @@ export default function LoginPage() {
               Manajemen Sekolah
             </h1>
             <p className="text-xl text-slate-200 max-w-md font-light drop-shadow-md">
-              Kelola data berita, kegiatan, dan administrasi sekolah dalam satu platform yang terintegrasi.
+              Kelola data berita, kegiatan, dan administrasi sekolah dalam satu
+              platform yang terintegrasi.
             </p>
           </div>
 
@@ -78,19 +96,31 @@ export default function LoginPage() {
 
           <div className="w-full max-w-md space-y-10 relative z-10">
             <div className="space-y-2">
-              <Link href="/" className="inline-flex lg:hidden items-center gap-2 text-white font-medium mb-6 hover:text-brand-secondary transition-colors">
+              <Link
+                href="/"
+                className="inline-flex lg:hidden items-center gap-2 text-white font-medium mb-6 hover:text-brand-secondary transition-colors"
+              >
                 <Home size={18} /> Kembali ke Beranda
               </Link>
-              <h2 className="text-3xl md:text-4xl font-heading font-extrabold text-white drop-shadow-sm">Selamat Datang</h2>
-              <p className="text-slate-300">Silakan masuk ke akun admin Anda.</p>
+              <h2 className="text-3xl md:text-4xl font-heading font-extrabold text-white drop-shadow-sm">
+                Selamat Datang
+              </h2>
+              <p className="text-slate-300">
+                Silakan masuk ke akun admin Anda.
+              </p>
             </div>
 
             <form onSubmit={handleLogin} className="space-y-6">
               <div className="space-y-5">
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-slate-200 ml-1">Username</label>
+                  <label className="text-sm font-semibold text-slate-200 ml-1">
+                    Username
+                  </label>
                   <div className="relative group">
-                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-white transition-colors z-10" size={20} />
+                    <Mail
+                      className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-white transition-colors z-10"
+                      size={20}
+                    />
                     <input
                       type="text"
                       placeholder="Masukkan Username Anda"
@@ -103,9 +133,14 @@ export default function LoginPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-slate-200 ml-1">Password</label>
+                  <label className="text-sm font-semibold text-slate-200 ml-1">
+                    Password
+                  </label>
                   <div className="relative group">
-                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-white transition-colors z-10" size={20} />
+                    <Lock
+                      className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-white transition-colors z-10"
+                      size={20}
+                    />
                     <input
                       type="password"
                       placeholder="••••••••"
@@ -120,23 +155,43 @@ export default function LoginPage() {
 
               <div className="flex items-center justify-between text-sm">
                 <label className="flex items-center gap-2 cursor-pointer select-none">
-                  <input type="checkbox" className="w-4 h-4 rounded border-white/30 bg-white/10 text-brand-primary focus:ring-white/50" />
+                  <input
+                    type="checkbox"
+                    className="w-4 h-4 rounded border-white/30 bg-white/10 text-brand-primary focus:ring-white/50"
+                  />
                   <span className="text-slate-300 font-medium">Ingat saya</span>
                 </label>
-                <Link href="#" className="text-white font-semibold hover:text-brand-secondary transition-colors drop-shadow-sm">Lupa Password?</Link>
+                <Link
+                  href="#"
+                  className="text-white font-semibold hover:text-brand-secondary transition-colors drop-shadow-sm"
+                >
+                  Lupa Password?
+                </Link>
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-brand-primary/90 hover:bg-brand-primary text-white py-4 rounded-2xl font-bold transition-all shadow-[0_0_20px_rgba(29,78,216,0.4)] hover:shadow-[0_0_30px_rgba(29,78,216,0.6)] border border-brand-primary-light/30 flex items-center justify-center gap-2 group active:scale-[0.98] backdrop-blur-md cursor-pointer"
+                disabled={loading}
+                className="w-full bg-brand-primary/90 hover:bg-brand-primary text-white py-4 rounded-2xl font-bold transition-all shadow-[0_0_20px_rgba(29,78,216,0.4)] hover:shadow-[0_0_30px_rgba(29,78,216,0.6)] border border-brand-primary-light/30 flex items-center justify-center gap-2 group active:scale-[0.98] backdrop-blur-md cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                Masuk Sekarang
-                <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
+                {loading ? "Memproses..." : "Masuk Sekarang"}
+                {!loading && (
+                  <ArrowRight
+                    size={20}
+                    className="transition-transform group-hover:translate-x-1"
+                  />
+                )}
               </button>
             </form>
 
             <p className="text-center text-slate-300 text-sm">
-              Butuh bantuan akses? <Link href="/main/hubungi-kami" className="text-white font-bold hover:text-brand-secondary transition-colors">Hubungi IT Support</Link>
+              Butuh bantuan akses?{" "}
+              <Link
+                href="/main/hubungi-kami"
+                className="text-white font-bold hover:text-brand-secondary transition-colors"
+              >
+                Hubungi IT Support
+              </Link>
             </p>
           </div>
         </div>

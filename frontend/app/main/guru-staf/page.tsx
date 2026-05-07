@@ -126,8 +126,8 @@ export default function GuruStafPage() {
             >
               <div className="relative z-10 space-y-4">
                 <h3 className="text-2xl md:text-3xl font-heading font-bold italic">
-                  "Pendidikan adalah senjata paling mematikan di dunia, karena
-                  dengan pendidikan, Anda dapat mengubah dunia."
+                  &quot;Pendidikan adalah senjata paling mematikan di dunia, karena
+                  dengan pendidikan, Anda dapat mengubah dunia.&quot;
                 </h3>
                 <p className="text-blue-100 font-medium">— Nelson Mandela</p>
               </div>
