@@ -5,7 +5,7 @@ import Image from "next/image";
 import { 
   Facebook, 
   Instagram, 
-  Twitter, 
+  Music2, 
   Youtube, 
   Mail, 
   Phone, 
@@ -13,9 +13,42 @@ import {
   ArrowRight
 } from "lucide-react";
 import { menuData } from "@/lib/data";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+
+  const socials = [
+    { 
+      icon: Facebook, 
+      href: "https://www.facebook.com/324948335046042", 
+      hoverBg: "hover:bg-blue-600", 
+      hoverText: "hover:text-white",
+      label: "Facebook" 
+    },
+    { 
+      icon: Instagram, 
+      href: "https://www.instagram.com/smansabangunrejo/?hl=en", 
+      hoverBg: "hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-pink-500 hover:to-purple-600", 
+      hoverText: "hover:text-white",
+      label: "Instagram" 
+    },
+    { 
+      icon: Music2, 
+      href: "https://www.tiktok.com/@osissmansabangunrejo_?is_from_webapp=1&sender_device=pc", 
+      hoverBg: "hover:bg-slate-100", 
+      hoverText: "hover:text-slate-900",
+      label: "TikTok" 
+    },
+    { 
+      icon: Youtube, 
+      href: "https://www.youtube.com/channel/UCWwq4domYrvlazIWwi9IENQ", 
+      hoverBg: "hover:bg-red-600", 
+      hoverText: "hover:text-white",
+      label: "Youtube" 
+    },
+  ];
 
   return (
     <footer className="bg-slate-950 text-slate-300 pt-20 pb-10 overflow-hidden relative">
@@ -49,22 +82,27 @@ export default function Footer() {
               Membentuk generasi cerdas, berkarakter, dan berdaya saing global berlandaskan iman dan takwa.
             </p>
             <div className="flex items-center gap-4">
-              {[
-                { icon: Facebook, href: "https://www.facebook.com/324948335046042", color: "hover:text-blue-500", label: "Facebook" },
-                { icon: Instagram, href: "https://www.instagram.com/smansabangunrejo/?hl=en", color: "hover:text-pink-500", label: "Instagram" },
-                { icon: Twitter, href: "https://www.instagram.com/smansabangunrejo/?hl=en", color: "hover:text-sky-400", label: "Twitter" },
-                { icon: Youtube, href: "https://www.youtube.com/channel/UCWwq4domYrvlazIWwi9IENQ", color: "hover:text-red-500", label: "Youtube" },
-              ].map((social, i) => (
-                <a 
-                  key={i} 
+              {socials.map((social, i) => (
+                <motion.a
+                  key={i}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Kunjungi ${social.label} kami`}
-                  className={`w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-white hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] ${social.color}`}
+                  whileHover={{ 
+                    scale: 1.15, 
+                    rotate: 5,
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  className={cn(
+                    "w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm",
+                    "bg-slate-900/50 border border-slate-800 text-slate-400 backdrop-blur-sm",
+                    social.hoverBg,
+                    social.hoverText
+                  )}
                 >
-                  <social.icon size={18} />
-                </a>
+                  <social.icon size={20} strokeWidth={2.5} />
+                </motion.a>
               ))}
             </div>
           </div>
