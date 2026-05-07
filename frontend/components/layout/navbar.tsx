@@ -69,10 +69,10 @@ export default function Navbar() {
                 />
               </div>
               <div className="flex flex-col justify-center">
-                <span className={`font-heading font-bold text-xs sm:text-sm min-[900px]:text-base leading-tight tracking-tight transition-colors duration-300 ${isScrolled ? "text-brand-primary" : "text-white"}`}>
+                <span className={`font-heading font-bold text-sm sm:text-base min-[900px]:text-lg leading-tight tracking-tight transition-colors duration-300 ${isScrolled ? "text-brand-primary" : "text-white"}`}>
                   SMA Negeri 1 Bangunrejo
                 </span>
-                <span className={`font-poppins font-medium text-[9px] sm:text-[11px] min-[900px]:text-[13px] leading-none tracking-wide transition-colors duration-300 ${isScrolled ? "text-brand-primary-dark/90" : "text-white/90"}`}>
+                <span className={`font-poppins font-medium text-[10px] sm:text-[12px] min-[900px]:text-[14px] leading-none tracking-wide transition-colors duration-300 ${isScrolled ? "text-brand-primary-dark/90" : "text-white/90"}`}>
                   B-STAR (Bertaqwa' Santun, Terampil' Adaptif, dan Responsip)
                 </span>
               </div>
