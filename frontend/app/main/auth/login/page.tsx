@@ -22,8 +22,10 @@ export default function LoginPage() {
 
     try {
       setLoading(true);
-
-      await login(username, password);
+      const formData = new FormData();
+      formData.append("username", username);
+      formData.append("password", password);
+      await login(formData);
       toast.success("Login berhasil");
       router.push("/admin");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
