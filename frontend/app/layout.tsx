@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import { AuthProvider } from "./main/auth/authcontext";
 
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-heading",
@@ -40,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className={`${plusJakarta.variable} ${inter.variable} ${poppins.variable} antialiased`}>
-        {children}
+        <AuthProvider>{children}</AuthProvider>
         <Toaster position="top-center" />
       </body>
     </html>
