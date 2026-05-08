@@ -21,6 +21,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { AlertDialogDestructive } from "./alert-delete";
 import { api_news } from "@/constans/strings";
+import { useAuth } from "@/app/main/auth/authcontext";
 
 export default function NewsDataTable() {
   const router = useRouter();
@@ -41,8 +42,14 @@ export default function NewsDataTable() {
     setCurrentPage,
   } = useNewsData();
 
+
+  const { accessToken } = useAuth();
   const deleteNews = async (slug: string) => {
-    const res = await axios.delete(`${api_news}/${slug}`);
+    const res = await axios.delete(`${api_news}/${slug}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     if (res.status === 200) {
       toast.success(res.data.message);
       await getNews();

@@ -15,17 +15,13 @@ export default function LoginPage() {
   const { login } = useAuth();
   const [loading, setLoading] = useState(false);
 
-  console.log(username, password);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
       setLoading(true);
-      const formData = new FormData();
-      formData.append("username", username);
-      formData.append("password", password);
-      await login(formData);
+      await login(username, password);
       toast.success("Login berhasil");
       router.push("/admin");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
