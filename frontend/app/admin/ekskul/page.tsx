@@ -19,10 +19,12 @@ import { api_eskul } from "@/constans/strings";
 import { useEskul } from "@/hook/UseEskul";
 import EskulFormDialog from "@/components/admin/EskulFormDialog";
 import { AlertDialogDestructive } from "@/components/admin/alert-delete";
+import { useAuth } from "@/app/main/auth/authcontext";
 
 export default function AdminEskulPage() {
   const router = useRouter();
   const { eskul, loading, error, refetch } = useEskul();
+  const {accessToken} = useAuth();
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -71,7 +73,7 @@ export default function AdminEskulPage() {
     setNama(selectedEskul.nama);
     setPembina(selectedEskul.pembina);
     setTujuan(selectedEskul.tujuan);
-    setPrestasi(selectedEskul.prestasi);
+    setPrestasi(selectedEskul.prestasi || "");
     setJadwal(selectedEskul.jadwal);
     setFoto(null);
 
@@ -99,14 +101,27 @@ export default function AdminEskulPage() {
 
       const res =
         isEdit && selectedSlug
-          ? await axios.put(`${api_eskul}/${selectedSlug}`, formData)
-          : await axios.post(api_eskul, formData);
+          ? await axios.put(`${api_eskul}/${selectedSlug}`, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${accessToken}`,
+            },
+            withCredentials: true,
+          })
+          : await axios.post(api_eskul, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${accessToken}`,
+            },
+            withCredentials: true,
+          });
 
       toast.success(res.data);
 
       resetForm();
       setIsDialogOpen(false);
       await refetch();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error(error);
       toast.error(error?.response?.data?.error || "Terjadi kesalahan");

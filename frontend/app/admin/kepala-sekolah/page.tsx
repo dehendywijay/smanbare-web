@@ -10,6 +10,7 @@ import { useKepalaDetail } from "@/hook/useKepala";
 import { api_kepala } from "@/constans/strings";
 import axios from "axios";
 import { set } from "react-hook-form";
+import { useAuth } from "@/app/main/auth/authcontext";
 
 export default function AdminKepalaSekolahPage() {
   const { kepala, loading, error, refetch } = useKepalaDetail(1);
@@ -19,6 +20,7 @@ export default function AdminKepalaSekolahPage() {
   const [preview, setPreview] = useState<string>("");
 
   const [isEdit, setIsEdit] = useState(false);
+  const { accessToken } = useAuth();
 
   const handleEdit = () => {
     setIsEdit(true);
@@ -46,7 +48,13 @@ export default function AdminKepalaSekolahPage() {
       }
 
       const res = kepala
-        ? await axios.put(`${api_kepala}/1`, formData)
+        ? await axios.put(`${api_kepala}/1`, formData , {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          withCredentials: true,
+        })
         : await axios.post(api_kepala, formData);
 
       setIsEdit(false);

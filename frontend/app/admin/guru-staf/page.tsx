@@ -19,8 +19,10 @@ import { useGuru } from "@/hook/useGuru";
 import GuruFormDialog from "@/components/admin/GuruFormDialog";
 import { AlertDialogDestructive } from "@/components/admin/alert-delete";
 import ReusablePagination from "@/components/shared/ReusablePagination";
+import { useAuth } from "@/app/main/auth/authcontext";
 export default function AdminGuruStafPage() {
   const { guru, loading, error, refetch } = useGuru();
+  const {accessToken} = useAuth();
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -91,8 +93,20 @@ export default function AdminGuruStafPage() {
 
       const res =
         isEdit && selectedId
-          ? await axios.put(`${api_guru}/${selectedId}`, formData)
-          : await axios.post(api_guru, formData);
+          ? await axios.put(`${api_guru}/${selectedId}`, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${accessToken}`,
+            },
+            withCredentials: true,
+          })
+          : await axios.post(api_guru, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${accessToken}`,
+            },
+            withCredentials: true,
+          });
 
       toast.success(res.data.message);
 

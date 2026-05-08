@@ -15,7 +15,6 @@ export default function LoginPage() {
   const { login } = useAuth();
   const [loading, setLoading] = useState(false);
 
-  console.log(username, password);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
