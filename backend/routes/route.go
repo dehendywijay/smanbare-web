@@ -36,27 +36,38 @@ func AuthRoute(r *gin.Engine) {
 		auth.POST("/register", controllers.CreateAdmin)
 		auth.POST("/refresh", controllers.RefreshToken)
 	}
+	auth.Use(middleware.AuthMiddleware())
+	{
+		
+	}
 }
 
 func GuruRoute(r *gin.Engine) {
 	guru := r.Group("/api/guru")
 	{
-		guru.POST("", controllers.CreateGuru)
 		guru.GET("", controllers.GetGuru)
-		guru.PUT("/:id", controllers.EditGuru)
-		guru.DELETE("/:id", controllers.DeleteGuru)
 		guru.GET("/kepala/:id", controllers.GetKepalaByID)
+		
+	}
+	guru.Use(middleware.AuthMiddleware())
+	{
+		guru.POST("", controllers.CreateGuru)
+		guru.PUT("/:id", controllers.EditGuru)
 		guru.POST("/kepala", controllers.CreateKepala)
 		guru.PUT("/kepala/:id", controllers.EditKepala)
+		guru.DELETE("/:id", controllers.DeleteGuru)
 	}
 }
 
 func EskulRoute(r *gin.Engine) {
 	eskul := r.Group("/api/eskul")
 	{
-		eskul.POST("", controllers.CreateEskul)
 		eskul.GET("", controllers.GetEskul)
 		eskul.GET("/:slug", controllers.GetEskulByID)
+	}
+	eskul.Use(middleware.AuthMiddleware())
+	{
+		eskul.POST("", controllers.CreateEskul)
 		eskul.PUT("/:slug", controllers.EditEskul)
 		eskul.DELETE("/:slug", controllers.DeleteEskul)
 	}
@@ -65,9 +76,14 @@ func EskulRoute(r *gin.Engine) {
 func AlumniRoute(r *gin.Engine) {
 	alumni := r.Group("/api/alumni")
 	{
-		alumni.POST("", controllers.CreateAlumni)
+		
 		alumni.GET("", controllers.GetAllAlumni)
+		
+	}
+	alumni.Use(middleware.AuthMiddleware())
+	{
 		alumni.PUT("/:id", controllers.UpdateAlumni)
 		alumni.DELETE("/:id", controllers.DeleteAlumni)
+		alumni.POST("", controllers.CreateAlumni)
 	}
 }

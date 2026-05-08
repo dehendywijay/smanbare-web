@@ -19,8 +19,10 @@ import { AlertDialogDestructive } from "@/components/admin/alert-delete";
 import { api_alumni } from "@/constans/strings";
 import { useAlumni } from "@/hook/useAlumni";
 import AlumniFormDialog from "@/components/admin/AlumniFormDialog";
+import { useAuth } from "@/app/main/auth/authcontext";
 
 export default function AdminAlumniPage() {
+  const {accessToken} = useAuth();
   const { alumni, loading, error, refetch } = useAlumni();
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -87,14 +89,27 @@ export default function AdminAlumniPage() {
 
       const res =
         isEdit && selectedId
-          ? await axios.put(`${api_alumni}/${selectedId}`, formData)
-          : await axios.post(api_alumni, formData);
+          ? await axios.put(`${api_alumni}/${selectedId}`, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${accessToken}`,
+            },
+            withCredentials: true,
+          })
+          : await axios.post(api_alumni, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${accessToken}`,
+            },
+            withCredentials: true,
+          });
 
       toast.success(res.data);
 
       resetForm();
       setIsDialogOpen(false);
       await refetch();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error(error);
       toast.error(error?.response?.data?.error || "Terjadi kesalahan");
@@ -107,6 +122,7 @@ export default function AdminAlumniPage() {
 
       toast.success(res.data);
       await refetch();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(error?.response?.data?.error || "Gagal menghapus data");
     }
