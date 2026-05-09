@@ -73,7 +73,7 @@ export default function Navbar() {
                   SMA Negeri 1 Bangunrejo
                 </span>
                 <span className={`font-poppins font-medium text-[10px] sm:text-[12px] min-[900px]:text-[14px] leading-none tracking-wide transition-colors duration-300 ${isScrolled ? "text-brand-primary-dark/90" : "text-white/90"}`}>
-                  B-STAR (Bertaqwa' Santun, Terampil' Adaptif, dan Responsip)
+                  B-STAR (Bertaqwa&apos; Santun, Terampil&apos; Adaptif, dan Responsip)
                 </span>
               </div>
             </Link>
