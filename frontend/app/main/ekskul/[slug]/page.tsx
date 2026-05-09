@@ -84,7 +84,7 @@ export default function Home({
                 />
               </div>
 
-              {eskul?.prestasi ?(
+              {eskul?.prestasi || null?(
               <div className="p-10 rounded-[40px] bg-slate-900 text-white space-y-6 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-brand-primary/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
                 <div className="relative z-10">

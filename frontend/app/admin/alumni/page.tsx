@@ -118,7 +118,14 @@ export default function AdminAlumniPage() {
 
   const handleDelete = async (id: number) => {
     try {
-      const res = await axios.delete(`${api_alumni}/${id}`);
+      const res = await axios.delete(`${api_alumni}/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+          withCredentials: true,
+        }
+      );
 
       toast.success(res.data);
       await refetch();

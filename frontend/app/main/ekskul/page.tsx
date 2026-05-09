@@ -4,7 +4,6 @@ import PageHero from "@/components/shared/PageHero";
 import RevealOnScroll from "@/components/animations/RevealOnScroll";
 import Link from "next/link";
 import Image from "next/image";
-import { ekskulList } from "@/lib/data";
 import { Compass, ArrowRight } from "lucide-react";
 import { useEskul } from "@/hook/UseEskul";
 

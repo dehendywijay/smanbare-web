@@ -134,6 +134,7 @@ export default function AdminEskulPage() {
 
       toast.success(res.data);
       await refetch();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(error?.response?.data?.error || "Gagal menghapus data");
     }
