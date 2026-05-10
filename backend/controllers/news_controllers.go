@@ -12,7 +12,7 @@ import (
 func CreateNews(c *gin.Context) {
 	title := c.PostForm("title")
 	content := c.PostForm("content")
-	kategori := c.PostForm("category")
+	kategori := c.PostForm("kategori")
 
 	if title == "" || content == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "title and content are required"})
@@ -79,6 +79,7 @@ func UpdateNews(c *gin.Context) {
 	slug := c.Param("slug")
 	title := c.PostForm("title")
 	content := c.PostForm("content")
+	kategori := c.PostForm("kategori")
 
 	if title == "" || content == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "title and content are required"})
@@ -89,6 +90,7 @@ func UpdateNews(c *gin.Context) {
 		Title:   title,
 		Content: content,
 		Slug:    utility.MakeSlug(title),
+		Kategori: kategori,
 	}
 
 	file, _ := c.FormFile("image")

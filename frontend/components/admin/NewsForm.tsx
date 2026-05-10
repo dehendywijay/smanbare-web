@@ -67,7 +67,7 @@ export default function NewsForm({
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", content);
-    formData.append("category", kategori);
+    formData.append("kategori", kategori);
 
     if (thumbnail) {
       formData.append("image", thumbnail);
