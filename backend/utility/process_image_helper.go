@@ -14,18 +14,18 @@ import (
 func ProcessImageUpload(c *gin.Context, field string) ([]byte, string, string, error) {
 	file, err := c.FormFile(field)
 	if err != nil {
-		return nil, "", "", fmt.Errorf("image is required")
+		return nil, "", "", fmt.Errorf("gambar tidak boleh kosong")
 	}
 
 	src, err := file.Open()
 	if err != nil {
-		return nil, "", "", fmt.Errorf("failed to open uploaded file")
+		return nil, "", "", fmt.Errorf("gagal membuka gambar yang diunggah")
 	}
 	defer src.Close()
 
 	fileBytes, err := io.ReadAll(src)
 	if err != nil {
-		return nil, "", "", fmt.Errorf("failed to read uploaded file")
+		return nil, "", "", fmt.Errorf("gagal membaca gambar yang diunggah")
 	}
 
 	contentType := file.Header.Get("Content-Type")

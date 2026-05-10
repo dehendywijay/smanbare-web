@@ -8,6 +8,7 @@ const apiClient = axios.create({
   timeout: 10000,
 });
 
+
 /**
  * Mengambil daftar semua berita dari API.
  * @returns {Promise<News[]>} Sebuah promise yang resolve dengan array objek berita.
@@ -47,9 +48,13 @@ export async function createNews(formData: FormData): Promise<News> {
  * @param {FormData} formData - FormData yang berisi field: title, content, dan opsional image.
  * @returns {Promise<News>} Sebuah promise yang resolve dengan objek berita yang telah diperbarui.
  */
-export async function updateNews(slug: string, formData: FormData): Promise<News> {
+export async function updateNews(slug: string,token: string, formData: FormData): Promise<News> {
   const { data } = await apiClient.put<News>(`/news/${slug}`, formData, {
-    headers: { "Content-Type": "multipart/form-data" },
+   headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
+            },
+    withCredentials: true,
   });
   return data;
 }

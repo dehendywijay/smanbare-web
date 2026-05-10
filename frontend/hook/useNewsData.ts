@@ -5,6 +5,7 @@ import { useState, useEffect, useMemo } from "react";
 import { News } from "@/types/type";
 import { fetchNewsList, createNews, updateNews, deleteNews } from "@/lib/newsApi";
 import { toast } from "sonner";
+import { useAuth } from "@/app/main/auth/authcontext";
 
 /**
  * @description Custom hook untuk mengelola data berita dengan paginasi.
@@ -22,6 +23,7 @@ export function useNewsData(itemsPerPage: number = 5) {
   const [editingNews, setEditingNews] = useState<News | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
+  const { accessToken } = useAuth();
 
   // Memfilter berita berdasarkan query pencarian
   const filteredNews = useMemo(() => {
@@ -70,7 +72,7 @@ export function useNewsData(itemsPerPage: number = 5) {
   const handleSave = async (formData: FormData) => {
     try {
       if (editingNews) {
-        await updateNews(editingNews.slug, formData);
+        await updateNews(editingNews.slug, accessToken as string, formData);
         toast.success("Berita berhasil diperbarui");
       } else {
         await createNews(formData);
