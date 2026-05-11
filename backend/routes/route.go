@@ -38,7 +38,7 @@ func AuthRoute(r *gin.Engine) {
 	}
 	auth.Use(middleware.AuthMiddleware())
 	{
-		
+		auth.POST("/logout", controllers.LogoutAdmin)
 	}
 }
 
