@@ -31,6 +31,7 @@ export default function Header({ onMenuToggle }: HeaderProps) {
   useEffect(() => {
     const name = localStorage.getItem("admin_name");
     if (name) {
+      //eslint-disable-next-line react-hooks/set-state-in-effect
       setAdminName(name);
     }
   }, []);

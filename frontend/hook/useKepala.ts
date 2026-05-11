@@ -1,30 +1,26 @@
 "use client";
 
-import {  api_kepala } from "@/constants/strings";
+import { api_kepala } from "@/constants/strings";
 import { KepalaSekolah } from "@/types/type";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import useSWR from "swr";
 
-export const useKepalaDetail = (id: 1) => {
-  const [kepala, setKepala] = useState<KepalaSekolah>();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
-  const fetchKepalaByID = async () => {
-    try {
-      const data = await axios.get<KepalaSekolah>(`${api_kepala}/${id}`).then((res) => res.data);
-      setKepala(data);
-    } catch (error) {
-      console.error(error);
-      setError("Gagal Mengambil Data Kepala Sekolah.");
-    } finally {
-      setLoading(false);
+export const useKepalaDetail = (id: number) => {
+  const { data, error, mutate, isLoading } = useSWR<KepalaSekolah>(
+    `${api_kepala}/${id}`,
+    fetcher,
+    {
+      revalidateOnFocus: true,
+      revalidateOnReconnect: true,
     }
-  };
-  
-  useEffect(() => {
-    fetchKepalaByID();
-  }, []);
+  );
 
-  return { kepala, loading, error, refetch: fetchKepalaByID };
+  return {
+    kepala: data,
+    loading: isLoading,
+    error: error ? "Gagal Mengambil Data Kepala Sekolah." : null,
+    refetch: mutate,
+  };
 };
