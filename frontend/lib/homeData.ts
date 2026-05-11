@@ -3,19 +3,19 @@ import type { HeroSlide, SchoolStatConfig } from "@/types/home";
 // Homepage hero carousel content.
 export const heroSlides: HeroSlide[] = [
   {
-    imageUrl: "/img/Sma.jpeg",
+    imageUrl: "/img/4.jpeg",
     alt: "SMA Negeri 1 - Gedung",
     title: "Selamat Datang di SMA N 1 Bangunrejo",
     subtitle: "Membentuk Generasi Cerdas dan Berkarakter",
   },
   {
-    imageUrl: "/img/Sman.jpeg",
+    imageUrl: "/img/2.png",
     alt: "SMA Negeri 1 - Belajar",
     title: "Fasilitas Modern & Terlengkap",
     subtitle: "Mendukung Proses Belajar Mengajar secara Optimal",
   },
   {
-    imageUrl: "/img/Smansa_tugu.jpeg",
+    imageUrl: "/img/3.jpeg",
     alt: "SMA Negeri 1 - Ekskul",
     title: "Raih Prestasi Bersama Kami",
     subtitle: "Beragam Pilihan Ekstrakurikuler Unggulan",

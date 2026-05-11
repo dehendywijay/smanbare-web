@@ -102,12 +102,18 @@ export default function AlumniPage() {
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                         </div>
+                        <div className="absolute top-4 left-4">
+                          <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-brand-primary text-[10px] font-bold uppercase tracking-wider">
+                           Angkatan {parseInt(alumni.tahun) - 2005 } 
+                          </span>
+                        </div>
 
                         {/* Content */}
                         <div className="p-6 text-center">
                           <h3 className="font-heading font-bold text-slate-900 group-hover:text-brand-primary transition-colors duration-300">
-                            {alumni.nama}
+                            {alumni.nama} <br />
                           </h3>
+                          
                           <div className="flex items-center justify-center gap-1.5 mt-2 text-slate-600">
                             <School size={16} className="text-brand-primary/80" />
                             <p className="text-sm font-medium italic">

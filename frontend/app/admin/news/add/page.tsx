@@ -69,7 +69,7 @@ export default function CreatePostForm() {
       const formData = new FormData();
       formData.append("title", title);
       formData.append("content", content);
-      formData.append("category", kategori);
+      formData.append("kategori", kategori);
 
       if (image) {
         formData.append("image", image);
@@ -94,8 +94,9 @@ export default function CreatePostForm() {
       console.error(error);
       toast.error(
         error?.response?.data?.error ||
-          "Terjadi kesalahan saat menyimpan berita",
+          "Waktu Session sudah habis mohon login kembali",
       );
+     
     } finally {
       setIsLoading(false);
     }
