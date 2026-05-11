@@ -9,7 +9,7 @@ import {
 } from "react";
 
 import axios from "axios";
-import { api, api_login, api_refresh } from "@/constans/strings";
+import { api, api_login, api_refresh, api_logout } from "@/constans/strings";
 
 interface User {
   username: string;
@@ -22,7 +22,7 @@ interface AuthContextType {
   loading: boolean;
 
   login: (username: string, password: string) => Promise<void>;
-  logout: () => void;
+  logout: () => Promise<void>;
   refreshAccessToken: () => Promise<string | null>;
 }
 
@@ -99,7 +99,17 @@ export function AuthProvider({
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
+    try {
+      await axios.post(api_logout, {}, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        withCredentials: true,
+      });
+    } catch {
+      // lanjut clear state meski request gagal
+    }
     localStorage.removeItem("access_token");
     setAccessToken(null);
     setUser(null);

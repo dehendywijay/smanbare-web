@@ -36,9 +36,9 @@ export default function Header({ onMenuToggle }: HeaderProps) {
     }
   }, []);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     localStorage.removeItem("admin_name");
-    logout();
+    await logout();
     router.push("/main/auth/login");
   };
 

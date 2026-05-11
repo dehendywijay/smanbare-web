@@ -10,3 +10,4 @@ export const api_kepala = `${api_guru}/kepala`
 
 export const api_login = `${api}/api/auth/login`
 export const api_refresh = `${api}/api/auth/refresh`
+export const api_logout = `${api}/api/auth/logout`
