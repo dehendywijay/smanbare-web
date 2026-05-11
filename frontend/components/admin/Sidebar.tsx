@@ -2,18 +2,17 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { 
-  LayoutDashboard, 
-  Newspaper, 
-  Tags, 
-  Users, 
-  ChevronLeft, 
-  ChevronRight, 
-  UserCheck, 
-  GraduationCap, 
-  Trophy, 
-  BookOpen, 
-  Images,
+import {
+  LayoutDashboard,
+  Newspaper,
+  Tags,
+  Users,
+  ChevronLeft,
+  ChevronRight,
+  UserCheck,
+  GraduationCap,
+  Trophy,
+  BookOpen,
   X
 } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -26,7 +25,6 @@ const navItems = [
   { name: "Guru & Staf", href: "/admin/guru-staf", icon: GraduationCap },
   { name: "Ekskul", href: "/admin/ekskul", icon: Trophy },
   { name: "Alumni", href: "/admin/alumni", icon: BookOpen },
-  { name: "Galeri", href: "/admin/galeri", icon: Images },
 ];
 
 interface SidebarProps {

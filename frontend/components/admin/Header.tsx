@@ -12,7 +12,6 @@ const navItems = [
   { name: "Guru & Staf", href: "/admin/guru-staf" },
   { name: "Ekskul", href: "/admin/ekskul" },
   { name: "Alumni", href: "/admin/alumni" },
-  { name: "Galeri", href: "/admin/galeri" },
 ];
 
 interface HeaderProps {
