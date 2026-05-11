@@ -104,7 +104,7 @@ export default function AlumniPage() {
                         </div>
                         <div className="absolute top-4 left-4">
                           <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-brand-primary text-[10px] font-bold uppercase tracking-wider">
-                           Tahun Lulus {alumni.tahun}
+                           Angkatan {parseInt(alumni.tahun) - 2005 } 
                           </span>
                         </div>
 

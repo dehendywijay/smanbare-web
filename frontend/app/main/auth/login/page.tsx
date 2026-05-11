@@ -39,7 +39,7 @@ export default function LoginPage() {
       {/* Full-screen Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/img/library_reading_3d.png"
+          src="/img/4.jpeg"
           alt="Library 3D"
           fill
           className="object-cover"
