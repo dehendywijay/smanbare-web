@@ -5,7 +5,6 @@ import axios from "axios";
 import TextEditor from "@/components/text-editor";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import RevealOnScroll from "@/components/animations/RevealOnScroll";
 import { useRouter } from "next/navigation";
 import { api_news } from "@/constans/strings";
 import {
@@ -37,7 +36,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/app/main/auth/authcontext";
 
-export default function CreatePostForm() {
+export default function CreatePostForm() { 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState<File | null>(null);

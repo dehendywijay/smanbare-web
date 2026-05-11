@@ -1,5 +1,5 @@
 export const api = 'http://localhost:8081'
-export const api_base = `${api}/api`
+export const api_base = `http://${api}/api`
 export const api_news = "http://localhost:8081/api/news"
 export const api_images = `${api}/uploads`
 
