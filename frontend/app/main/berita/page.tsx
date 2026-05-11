@@ -19,7 +19,7 @@ export default function NewsList() {
     <main className="bg-white min-h-screen">
       <PageHero
         title="Berita & Informasi"
-        imageUrl="https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=75&w=1600&auto=format&fit=crop"
+        imageUrl="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1920&auto=format&fit=crop"
         alt="Hero Background"
         breadcrumbs={[{ label: "Berita" }]}
       />

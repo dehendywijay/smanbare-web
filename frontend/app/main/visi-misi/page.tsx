@@ -15,7 +15,7 @@ export default function Home() {
     <main className="bg-white min-h-screen">
       <PageHero 
         title="Visi dan Misi" 
-        imageUrl="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=1920&auto=format&fit=crop" 
+        imageUrl="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1920&auto=format&fit=crop" 
         alt="Visi Misi"
         breadcrumbs={[{ label: "Visi & Misi" }]}
       />

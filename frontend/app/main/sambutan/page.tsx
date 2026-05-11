@@ -1,15 +1,23 @@
+"use client"
+
 import Sidebar from "@/components/news/SideNews";
 import RevealOnScroll from "@/components/animations/RevealOnScroll";
 import PageHero from "@/components/shared/PageHero";
 import Image from "next/image";
 import { Quote } from "lucide-react";
+import { useKepalaDetail } from "@/hook/useKepala";
 
 export default function Home() {
+  const { kepala, loading, error } = useKepalaDetail(1);
+
+  loading;
+  error;
+
   return (
     <main className="bg-white min-h-screen">
       <PageHero
         title="Sambutan Kepala Sekolah"
-        imageUrl="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1920&auto=format&fit=crop"
+        imageUrl="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1920&auto=format&fit=crop"
         alt="Sambutan"
         breadcrumbs={[{ label: "Sambutan" }]}
       />
@@ -23,13 +31,13 @@ export default function Home() {
                 <div className="absolute -inset-4 border-2 border-brand-primary/20 rounded-3xl translate-x-4 translate-y-4 -z-10" />
                 <div className="relative h-full w-full rounded-3xl overflow-hidden shadow-2xl">
                   <Image
-                    src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop"
+                    src= {kepala?.foto || ""}
                     alt="Kepala Sekolah"
                     fill
                     className="object-cover"
                   />
                   <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-brand-primary to-transparent text-white">
-                    <p className="font-heading font-bold text-lg">Muhammad Zaenudin S.Pd</p>
+                    <p className="font-heading font-bold text-lg">{kepala?.name }</p>
                     <p className="text-xs uppercase tracking-widest text-white/80">Kepala Sekolah</p>
                   </div>
                 </div>
@@ -39,9 +47,10 @@ export default function Home() {
               <RevealOnScroll direction="right" className="flex-1 space-y-8">
                 <div className="relative pl-10 border-l-4 border-brand-primary/20 italic text-xl text-slate-600 leading-relaxed">
                   <Quote className="absolute -left-2 -top-6 text-brand-primary/10 w-20 h-20 -z-10" />
-                  <p>
-                    "Kami berkomitmen membangun lingkungan belajar yang unggul dalam prestasi akademik, kuat dalam karakter, dan adaptif terhadap perkembangan teknologi."
-                  </p>
+                  <div
+                className="space-y-4 text-slate-600 leading-relaxed text-lg italic"
+                dangerouslySetInnerHTML={{ __html: kepala?.content || "" }}
+              />
                 </div>
 
                 <div className="space-y-6 text-slate-600 leading-relaxed text-lg">

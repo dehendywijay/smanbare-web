@@ -27,7 +27,7 @@ export default function AlumniPage() {
     <main className="bg-white min-h-screen">
       <PageHero
         title="Alumni"
-        imageUrl="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?q=80&w=1920&auto=format&fit=crop"
+        imageUrl="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1920&auto=format&fit=crop"
         alt="Alumni"
         breadcrumbs={[{ label: "Alumni" }]}
       />

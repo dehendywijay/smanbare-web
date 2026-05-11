@@ -34,25 +34,12 @@ export default function ContactPage() {
       icon: Clock,
     },
   ];
-  //   {
-  //     q: "Bagaimana cara mendaftar peserta didik baru?",
-  //     a: "Silakan kunjungi menu PPDB atau hubungi panitia melalui nomor telepon yang tertera di jam operasional."
-  //   },
-  //   {
-  //     q: "Bagaimana menghubungi wali kelas?",
-  //     a: "Orang tua dapat menghubungi administrasi sekolah melalui telepon untuk diarahkan ke wali kelas terkait."
-  //   },
-  //   {
-  //     q: "Apakah sekolah menerima kunjungan studi?",
-  //     a: "Ya, silakan kirim surat permohonan resmi dan jadwal rencana kunjungan ke email sekolah."
-  //   }
-  // ];
 
   return (
     <main className="bg-white min-h-screen">
       <PageHero
         title="Hubungi Kami"
-        imageUrl="https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=1920&auto=format&fit=crop"
+        imageUrl="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1920&auto=format&fit=crop"
         alt="Hubungi Kami"
         breadcrumbs={[{ label: "Hubungi Kami" }]}
       />
