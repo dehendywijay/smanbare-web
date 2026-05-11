@@ -5,7 +5,6 @@ import axios from "axios";
 import TextEditor from "@/components/text-editor";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import RevealOnScroll from "@/components/animations/RevealOnScroll";
 import { useRouter } from "next/navigation";
 import { api_news } from "@/constans/strings";
 import {
