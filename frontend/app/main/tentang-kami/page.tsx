@@ -27,7 +27,7 @@ export default function TentangKamiPage() {
     <main className="bg-white min-h-screen">
       <PageHero 
         title="Tentang Kami" 
-        imageUrl="https://images.unsplash.com/photo-1580582932707-520aed93a94d?q=80&w=1920&auto=format&fit=crop" 
+        imageUrl="/img/Sma.jpeg" 
         alt="Tentang Kami"
         breadcrumbs={[{ label: "Tentang Kami" }]}
       />
