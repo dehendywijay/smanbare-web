@@ -1,12 +1,11 @@
 "use client";
 
-import { 
-  Newspaper, 
-  UserCheck, 
-  GraduationCap, 
-  Trophy, 
-  BookOpen, 
-  Images,
+import {
+  Newspaper,
+  UserCheck,
+  GraduationCap,
+  Trophy,
+  BookOpen,
   ArrowRight
 } from "lucide-react";
 import Link from 'next/link';
@@ -27,7 +26,6 @@ export default function AdminPage() {
     { name: "Total Guru & Staf", value: guru.length, icon: GraduationCap, color: "text-emerald-600", bg: "bg-emerald-50", border: "border-emerald-100", href: "/admin/guru-staf" },
     { name: "Total Ekskul", value: eskul.length, icon: Trophy, color: "text-amber-600", bg: "bg-amber-50", border: "border-amber-100", href: "/admin/ekskul" },
     { name: "Total Alumni", value: alumni.length, icon: BookOpen, color: "text-purple-600", bg: "bg-purple-50", border: "border-purple-100", href: "/admin/alumni" },
-    { name: "Total Galeri", value: "48", icon: Images, color: "text-pink-600", bg: "bg-pink-50", border: "border-pink-100", href: "/admin/galeri" },
   ];
 
   return (
