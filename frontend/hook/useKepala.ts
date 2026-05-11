@@ -1,6 +1,6 @@
 "use client";
 
-import {  api_kepala } from "@/constans/strings";
+import {  api_kepala } from "@/constants/strings";
 import { KepalaSekolah } from "@/types/type";
 import axios from "axios";
 import { useEffect, useState } from "react";

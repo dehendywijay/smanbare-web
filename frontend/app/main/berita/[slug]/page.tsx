@@ -4,7 +4,7 @@ import Sidebar from "@/components/news/SideNews";
 import RevealOnScroll from "@/components/animations/RevealOnScroll";
 import PageHero from "@/components/shared/PageHero";
 import ReadingProgressBar from "@/components/shared/ReadingProgressBar";
-import { api_images } from "@/constans/strings";
+import { api_images } from "@/constants/strings";
 import { useNewsDetail } from "@/hook/useNewsDetail";
 import Image from "next/image";
 import React from "react";

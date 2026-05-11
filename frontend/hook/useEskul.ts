@@ -1,6 +1,6 @@
 "use client";
 
-import { api_eskul } from "@/constans/strings";
+import { api_eskul } from "@/constants/strings";
 import { Eskul } from "@/types/type";
 import axios from "axios";
 import { useEffect, useState } from "react";

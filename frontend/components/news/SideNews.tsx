@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { api_images } from "@/constans/strings";
+import { api_images } from "@/constants/strings";
 import { useNews } from "@/hook/useNews";
 import Image from "next/image";
 import Link from "next/link";

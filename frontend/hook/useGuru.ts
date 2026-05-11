@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Guru} from "@/types/type";
 import { fetchNewsList } from "@/lib/newsApi";
 import axios from "axios";
-import {  api_guru } from "@/constans/strings";
+import {  api_guru } from "@/constants/strings";
 
 export const useGuru = () => {
   const [guru, setGuru] = useState<Guru[]>([]);

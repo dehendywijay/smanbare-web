@@ -9,7 +9,7 @@ import {
 } from "react";
 
 import axios from "axios";
-import { api, api_login, api_refresh, api_logout } from "@/constans/strings";
+import { api, api_login, api_refresh, api_logout } from "@/constants/strings";
 
 interface User {
   username: string;

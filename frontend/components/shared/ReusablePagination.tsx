@@ -9,7 +9,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/shared/pagination";
+} from "@/components/ui/pagination";
 
 interface ReusablePaginationProps {
   totalPages: number;

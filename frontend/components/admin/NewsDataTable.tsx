@@ -20,7 +20,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "sonner";
 import { AlertDialogDestructive } from "./alert-delete";
-import { api_news } from "@/constans/strings";
+import { api_news } from "@/constants/strings";
 import { useAuth } from "@/app/main/auth/authcontext";
 
 export default function NewsDataTable() {

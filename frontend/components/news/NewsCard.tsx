@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Calendar, ArrowRight } from "lucide-react";
 import { News } from "@/types/type";
-import { api_images } from "@/constans/strings";
+import { api_images } from "@/constants/strings";
 
 type NewsCardProps = {
   news: News;
