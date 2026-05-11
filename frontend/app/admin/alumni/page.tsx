@@ -16,7 +16,7 @@ import { toast } from "sonner";
 import axios from "axios";
 import { AlertDialogDestructive } from "@/components/admin/alert-delete";
 
-import { api_alumni } from "@/constans/strings";
+import { api_alumni } from "@/constants/strings";
 import { useAlumni } from "@/hook/useAlumni";
 import AlumniFormDialog from "@/components/admin/AlumniFormDialog";
 import { useAuth } from "@/app/main/auth/authcontext";

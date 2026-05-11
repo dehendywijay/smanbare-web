@@ -15,8 +15,8 @@ import {
 import { toast } from "sonner";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { api_eskul } from "@/constans/strings";
-import { useEskul } from "@/hook/UseEskul";
+import { api_eskul } from "@/constants/strings";
+import { useEskul } from "@/hook/useEskul";
 import EskulFormDialog from "@/components/admin/EskulFormDialog";
 import { AlertDialogDestructive } from "@/components/admin/alert-delete";
 import { useAuth } from "@/app/main/auth/authcontext";

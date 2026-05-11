@@ -6,7 +6,7 @@ import TextEditor from "@/components/text-editor";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { api_news } from "@/constans/strings";
+import { api_news } from "@/constants/strings";
 import {
   Select,
   SelectContent,

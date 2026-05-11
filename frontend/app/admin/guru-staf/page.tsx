@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/table";
 import { toast } from "sonner";
 import axios from "axios";
-import { api_guru } from "@/constans/strings";
+import { api_guru } from "@/constants/strings";
 import { useGuru } from "@/hook/useGuru";
 import GuruFormDialog from "@/components/admin/GuruFormDialog";
 import { AlertDialogDestructive } from "@/components/admin/alert-delete";

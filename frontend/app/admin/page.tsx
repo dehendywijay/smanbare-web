@@ -12,7 +12,7 @@ import {
 import Link from 'next/link';
 import { useGuru } from '@/hook/useGuru';
 import { useNews } from "@/hook/useNews";
-import { useEskul } from "@/hook/UseEskul";
+import { useEskul } from "@/hook/useEskul";
 import { useAlumni } from "@/hook/useAlumni";
 
 export default function AdminPage() {

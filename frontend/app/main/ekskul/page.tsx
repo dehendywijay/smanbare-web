@@ -5,7 +5,7 @@ import RevealOnScroll from "@/components/animations/RevealOnScroll";
 import Link from "next/link";
 import Image from "next/image";
 import { Compass, ArrowRight } from "lucide-react";
-import { useEskul } from "@/hook/UseEskul";
+import { useEskul } from "@/hook/useEskul";
 
 export default function EkskulPage() {
   const { eskul, loading, error } = useEskul();

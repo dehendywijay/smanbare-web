@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import TextEditor from "@/components/text-editor";
 import { toast } from "sonner";
 import { useKepalaDetail } from "@/hook/useKepala";
-import { api_kepala } from "@/constans/strings";
+import { api_kepala } from "@/constants/strings";
 import axios from "axios";
 import { set } from "react-hook-form";
 import { useAuth } from "@/app/main/auth/authcontext";
