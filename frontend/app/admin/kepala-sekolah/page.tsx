@@ -22,6 +22,8 @@ export default function AdminKepalaSekolahPage() {
   const [isEdit, setIsEdit] = useState(false);
   const { accessToken } = useAuth();
 
+
+
   const handleEdit = () => {
     setIsEdit(true);
     setNama(kepala?.name || "");
