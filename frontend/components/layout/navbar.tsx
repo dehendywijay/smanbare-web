@@ -58,8 +58,8 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             {/* Logo Section */}
-            <Link href="/" className="flex items-center gap-3 group shrink-0">
-              <div className="relative w-10 h-10 min-[900px]:w-12 min-[900px]:h-12 transition-transform duration-300 group-hover:scale-110">
+            <Link href="/" className="flex items-center gap-2 sm:gap-3 group flex-1 min-w-0 pr-2">
+              <div className="relative w-10 h-10 sm:w-10 sm:h-10 min-[900px]:w-12 min-[900px]:h-12 transition-transform duration-300 group-hover:scale-110 shrink-0">
                 <Image
                   src="/img/Smansa.ico"
                   alt="Logo SMAN 1 Bangunrejo"
@@ -68,11 +68,11 @@ export default function Navbar() {
                   className="object-contain"
                 />
               </div>
-              <div className="flex flex-col justify-center">
-                <span className={`font-heading font-bold text-sm sm:text-base min-[900px]:text-lg leading-tight tracking-tight transition-colors duration-300 ${isScrolled ? "text-brand-primary" : "text-white"}`}>
+              <div className="flex flex-col justify-center min-w-0">
+                <span className={`font-heading font-bold text-[13px] sm:text-base min-[900px]:text-lg leading-tight tracking-tight truncate transition-colors duration-300 ${isScrolled ? "text-brand-primary" : "text-white"}`}>
                   SMA Negeri 1 Bangunrejo
                 </span>
-                <span className={`font-poppins font-medium text-[10px] sm:text-[12px] min-[900px]:text-[14px] leading-none tracking-wide transition-colors duration-300 ${isScrolled ? "text-brand-primary-dark/90" : "text-white/90"}`}>
+                <span className={`font-poppins font-medium text-[8px] sm:text-[10px] min-[900px]:text-[14px] leading-[1.2] sm:leading-none tracking-wide transition-colors duration-300 line-clamp-2 sm:line-clamp-1 ${isScrolled ? "text-brand-primary-dark/90" : "text-white/90"}`}>
                   B-STAR (Bertaqwa&apos; Santun, Terampil&apos; Adaptif, dan Responsip)
                 </span>
               </div>
@@ -102,7 +102,7 @@ export default function Navbar() {
 
             {/* Mobile Menu Toggle */}
             <button
-              className={`min-[900px]:hidden p-2 rounded-lg transition-colors ${isScrolled ? "text-brand-primary hover:bg-slate-100" : "text-white hover:bg-white/10"
+              className={`min-[900px]:hidden p-2 rounded-lg transition-colors shrink-0 ${isScrolled ? "text-brand-primary hover:bg-slate-100" : "text-white hover:bg-white/10"
                 }`}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle menu"
