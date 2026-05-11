@@ -86,11 +86,10 @@ export default function HeroSection() {
           <button
             key={index}
             onClick={() => scrollTo(index)}
-            className={`transition-all duration-500 rounded-full ${
-              index === activeSlideIndex
+            className={`transition-all duration-500 rounded-full ${index === activeSlideIndex
                 ? "w-10 bg-brand-primary"
                 : "w-2.5 bg-white/40 hover:bg-white/60"
-            } h-2.5`}
+              } h-2.5`}
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}
