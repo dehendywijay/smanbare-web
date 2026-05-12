@@ -69,30 +69,6 @@ export default function ContactPage() {
               ))}
             </div>
 
-            {/* Contact Form & FAQ */}
-            <div className="grid md:grid-cols-2 gap-16">
-              {/* Form */}
-              <RevealOnScroll direction="left" className="space-y-8">
-                <div className="space-y-2">
-                  <h3 className="text-2xl font-heading font-extrabold text-slate-900">Kirim Pesan</h3>
-                  <p className="text-slate-500 text-sm">Punya pertanyaan? Kirim pesan langsung kepada tim kami.</p>
-                </div>
-                <form className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <input type="text" placeholder="Nama Lengkap" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-brand-primary transition-colors text-sm" />
-                    <input type="email" placeholder="Email" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-brand-primary transition-colors text-sm" />
-                  </div>
-                  <input type="text" placeholder="Subjek" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-brand-primary transition-colors text-sm" />
-                  <textarea placeholder="Pesan Anda" rows={5} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-brand-primary transition-colors text-sm" />
-                  <button className="w-full bg-brand-primary hover:bg-brand-primary-dark text-white py-4 rounded-xl font-bold transition-all shadow-lg shadow-brand-primary/20 flex items-center justify-center gap-2 group">
-                    Kirim Sekarang <Send size={18} className="group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </form>
-              </RevealOnScroll>
-
-
-            </div>
-
           </section>
 
           {/* Sidebar */}
