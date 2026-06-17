@@ -49,6 +49,7 @@ export default function NewsDataTable() {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
+      withCredentials: true
     });
     if (res.status === 200) {
       toast.success(res.data.message);
